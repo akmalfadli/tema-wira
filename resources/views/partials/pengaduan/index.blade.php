@@ -131,6 +131,8 @@
                     <h4 class="text-h6 text-primary-200"><i class="fas fa-pencil-alt mr-1"></i> Buat Pengaduan Baru</h4>
                 </div>
                 <form action="{{ $form_action }}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="{{ get_instance()->security->get_csrf_token_name() }}" value="{{ get_instance()->security->get_csrf_hash() }}">
+
                     <div class="modal-body relative px-3 py-2 lg:px-5">
                         <!-- Notifikasi -->
                         @include('theme::commons.notifikasi')

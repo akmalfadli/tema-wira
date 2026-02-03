@@ -90,6 +90,8 @@
             </div>
 
             <form action="{{ site_url('/add_comment/' . $single_artikel['id']) }}" method="POST" class="p-6 space-y-6">
+                <input type="hidden" name="{{ get_instance()->security->get_csrf_token_name() }}" value="{{ get_instance()->security->get_csrf_hash() }}">
+
                 {{-- Alert Messages --}}
                 @php $alert = ($notif['status'] == -1) ? 'error' : 'success'; @endphp
                 @if ($flash_message = $notif['pesan'])
