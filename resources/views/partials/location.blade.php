@@ -251,7 +251,7 @@
         modal.classList.remove('hidden');
         videoError.classList.add('hidden');
         
-        var videoUrl = '{{ theme_config('cctv_url') }}';
+        var videoUrl = '{{ theme_config('url_cctv') }}';
         
         // Cek apakah browser support HLS.js
         if (Hls.isSupported()) {
