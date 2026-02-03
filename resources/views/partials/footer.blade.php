@@ -19,7 +19,7 @@
             <i data-lucide="bar-chart-3" class="w-5 h-5 mb-1"></i>
             <span class="text-xs">Statistik</span>
         </a>
-        <a href="/map.html" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
+        <a href="/peta" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
             <i data-lucide="map" class="w-5 h-5 mb-1"></i>
             <span class="text-xs">Peta</span>
         </a>

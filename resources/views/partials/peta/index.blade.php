@@ -151,8 +151,8 @@
                 tampilLuas: '{{ setting('tampil_luas_peta') }}',
                 mapboxKey: '{{ setting('mapbox_key') }}',
                 jenisPeta: '{{ setting('jenis_peta') }}',
-                defaultTampilWilayah: {!! json_encode(SebutanDesa(setting('default_tampil_peta_wilayah')) ?: []) !!},
-                defaultTampilInfrastruktur: {!! json_encode(SebutanDesa(setting('default_tampil_peta_infrastruktur')) ?: []) !!}
+                defaultTampilWilayah: @json(SebutanDesa(setting('default_tampil_peta_wilayah')) ?: []),
+                defaultTampilInfrastruktur: @json(SebutanDesa(setting('default_tampil_peta_infrastruktur')) ?: [])
             },
             labels: {
                 desa: '{{ ucwords(setting('sebutan_desa')) }}',
