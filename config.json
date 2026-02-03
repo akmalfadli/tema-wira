@@ -1,0 +1,13 @@
+[
+    {
+     "judul": "Url CCTV Online",
+        "key": "url_cctv",
+        "value": "https://cctv.perwirateknologi.com",
+        "type": "input-text",
+        "keterangan": "",
+        "options": null,
+        "readonly": false,
+        "link": true,
+        "group": "Pembangunan"
+    }
+]

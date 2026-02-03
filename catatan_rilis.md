@@ -1,4 +1,4 @@
-Catatan Rilis v25.8:
+Catatan Rilis v26.01:
 
 Ini adalah tema Perwira yang dibuat untuk aplikasi Sistem Informasi Desa OpenSID
 

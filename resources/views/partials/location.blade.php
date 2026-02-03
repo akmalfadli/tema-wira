@@ -21,7 +21,6 @@
     </div>
 </div>
 
-
 <!-- Custom Modal for Video Popup -->
 <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-50 z-[10000] flex items-center justify-center hidden">
     <div class="bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 relative">
@@ -42,10 +41,11 @@
                 </div>
                 <div class="h-1 bg-green-500 mb-2"></div>
                 <div class="video-container">
-                    <video id="cctvVideo" controls muted class="w-full h-auto max-h-80 rounded-lg shadow-lg">
-                        <source src="https://timbang-purbalingga.desa.id/stream/pelayanan" type="video/mp4">
+                    <video id="cctvVideo" controls muted playsinline class="w-full h-auto max-h-80 rounded-lg shadow-lg">
+                        <source src="https://cctv.perwirateknologi.com/hls/cam_f1779c12f54ea202/stream.m3u8" type="application/x-mpegURL">
                         Browser tidak mendukung video.
                     </video>
+                    <p id="videoError" class="text-red-600 text-sm mt-2 hidden">Gagal memuat video CCTV</p>
                 </div>
             </div>
         </div>
@@ -94,8 +94,7 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-        /* Custom marker style */
-        /* Custom Location Pin Marker Styles */
+    /* Custom Location Pin Marker Styles */
     .custom-location-marker {
         background: none !important;
         border: none !important;
@@ -173,16 +172,24 @@
             opacity: 0.25;
         }
     }
+
     #closeModal {
-        color: #000000; /* Custom red color */
+        color: #000000;
         transition: color 0.2s ease;
     }
 
     #closeModal:hover {
-        color: #ffffff; /* Darker red on hover */
+        color: #ffffff;
     }
 </style>
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- HLS.js for video streaming -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <script>
     // Jika posisi kantor desa belum ada, tampilkan seluruh Indonesia
     @if (!empty($data_config['lat']) && !empty($data_config['lng']))
@@ -234,17 +241,111 @@
     var modal = document.getElementById('videoModal');
     var video = document.getElementById('cctvVideo');
     var closeBtn = document.getElementById('closeModal');
+    var videoError = document.getElementById('videoError');
 
-    // Fungsi buka modal
+    // Global HLS instance
+    var hlsInstance = null;
+
+    // Fungsi buka modal dengan HLS.js
     function openVideoModal() {
         modal.classList.remove('hidden');
-        video.currentTime = 0;
-        video.play().catch((err) => console.log('Autoplay prevented:', err));
+        videoError.classList.add('hidden');
+        
+        var videoUrl = '{{ theme_config('cctv_url') }}';
+        
+        // Cek apakah browser support HLS.js
+        if (Hls.isSupported()) {
+            console.log('Using HLS.js');
+            
+            // Destroy previous instance jika ada
+            if (hlsInstance) {
+                hlsInstance.destroy();
+            }
+            
+            hlsInstance = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+                maxBufferLength: 30,
+                maxMaxBufferLength: 60,
+                manifestLoadingTimeOut: 10000,
+                manifestLoadingMaxRetry: 3,
+                levelLoadingTimeOut: 10000,
+                levelLoadingMaxRetry: 3,
+                fragLoadingTimeOut: 20000,
+                fragLoadingMaxRetry: 3,
+            });
+            
+            hlsInstance.loadSource(videoUrl);
+            hlsInstance.attachMedia(video);
+            
+            hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+                console.log('Manifest parsed, playing video...');
+                video.play().catch(function(err) {
+                    console.log('Autoplay prevented:', err);
+                });
+            });
+            
+            // Handle errors
+            hlsInstance.on(Hls.Events.ERROR, function(event, data) {
+                console.error('HLS Error:', data);
+                
+                if (data.fatal) {
+                    switch(data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            console.error('Network error - attempting recovery');
+                            hlsInstance.startLoad();
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            console.error('Media error - attempting recovery');
+                            hlsInstance.recoverMediaError();
+                            break;
+                        default:
+                            console.error('Fatal error - destroying player');
+                            videoError.classList.remove('hidden');
+                            hlsInstance.destroy();
+                            hlsInstance = null;
+                            break;
+                    }
+                }
+            });
+        }
+        // Safari native HLS support
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            console.log('Using native HLS (Safari)');
+            video.src = videoUrl;
+            video.addEventListener('loadedmetadata', function() {
+                video.play().catch(function(err) {
+                    console.log('Autoplay prevented:', err);
+                });
+            });
+            
+            video.addEventListener('error', function() {
+                console.error('Video error');
+                videoError.classList.remove('hidden');
+            });
+        }
+        // Browser tidak support HLS
+        else {
+            console.error('Browser does not support HLS');
+            videoError.textContent = 'Browser Anda tidak mendukung streaming HLS';
+            videoError.classList.remove('hidden');
+        }
     }
 
     // Fungsi tutup modal
     function closeVideoModal() {
         video.pause();
+        video.currentTime = 0;
+        
+        // Destroy HLS instance
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
+        
+        // Reset video source
+        video.src = '';
+        
         modal.classList.add('hidden');
     }
 
@@ -269,12 +370,25 @@
         });
     }
 
-    // Tutup modal
+    // Event listeners untuk tutup modal
     closeBtn.addEventListener('click', closeVideoModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeVideoModal();
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeVideoModal();
+        }
     });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeVideoModal();
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeVideoModal();
+        }
+    });
+
+    // Cleanup saat page unload
+    window.addEventListener('beforeunload', function() {
+        if (hlsInstance) {
+            hlsInstance.destroy();
+        }
     });
 </script>
