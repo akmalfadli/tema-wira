@@ -9,11 +9,11 @@
         </ol>
     </nav>
     <h1 class="text-h2">Pembangunan</h1>
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-1" id="pembangunan-list">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-1" id="pembangunan-list">
     </div>
 @endsection
 
-@include('theme::commons.pagination')
+{{-- @include('theme::commons.pagination') --}}
 
 <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="modalLokasi" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog relative w-auto pointer-events-none">
@@ -49,8 +49,8 @@
 
                     pembangunan.forEach(function(item) {
                         var url = SITE_URL + 'pembangunan/' + item.attributes.slug;
-                        var fotoHTML = `<div class="space-y-3">
-                        <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600"
+                        var fotoHTML = `<div>
+                        <img class="h-40 sm:h-44 w-full object-cover object-center bg-gray-200"
                             src="${item.attributes.foto}" alt="Foto Pembangunan" />`
 
                         var buttonMap = '';
@@ -62,26 +62,26 @@
                         }
 
                         var pembangunanHTML = `
-                        <div class="flex flex-col justify-between space-y-4 this-product">
+                        <div class="flex flex-col justify-between space-y-4 this-product bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                             <div class="space-y-3">
                                 ${fotoHTML}
-                                <div class="space-y-1/2 text-sm flex flex-col detail">
-                                    <h3 class="text-h5">${item.attributes.judul}</h3>
-                                    <div class="inline-flex"><i class="fas fa-calendar-alt mr-2"></i>
+                                <div class="space-y-1 text-sm flex flex-col detail px-4">
+                                    <h3 class="text-base font-semibold line-clamp-2">${item.attributes.judul}</h3>
+                                    <div class="inline-flex text-gray-600 text-xs"><i class="fas fa-calendar-alt mr-2"></i>
                                         ${item.attributes.tahun_anggaran}
                                     </div>
-                                    <div class="font-thin">
+                                    <div class="font-thin text-gray-600 text-xs truncate">
                                         <i class="fas fa-map-marker-alt mr-1"></i>
                                         ${item.attributes.lokasi}
                                     </div>
-                                    <p class="text-sm pt-1">
-                                        ${item.attributes.keterangan.length > 100 ? item.attributes.keterangan.substring(0, 100) + '...' : item.attributes.keterangan}
+                                    <p class="text-sm text-gray-500 pt-1 line-clamp-2">
+                                        ${item.attributes.keterangan.length > 80 ? item.attributes.keterangan.substring(0, 80) + '...' : item.attributes.keterangan}
                                     </p>
                                 </div>
                             </div>
-                            <div class="group flex items-center space-x-1">
+                            <div class="flex flex-wrap items-center gap-2 px-4 pb-4">
                                 <a href="${url}"
-                                    class="btn btn-primary text-xs text-center rounded-0">Selengkapnya <i class="fas fa-chevron-right ml-1"></i>
+                                    class="btn btn-primary text-xs text-center rounded-md flex-1">Selengkapnya
                                 </a>
                                 ${buttonMap}
                             </div>
