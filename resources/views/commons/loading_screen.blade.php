@@ -1,4 +1,4 @@
-<div x-data="{ loading: true, onLoading() { setTimeout(() => { this.loading = false }, 1500) } }" x-init="onLoading()">
+<div x-data="{ loading: true, onLoading() { setTimeout(() => { this.loading = false }, 500) } }" x-init="onLoading()">
     <div class="fixed inset-0 bg-gradient-to-br from-green-50 via-white to-green-50 z-[9999] flex flex-col justify-center items-center" 
          x-show="loading" 
          x-transition:leave="transition ease-in duration-300"

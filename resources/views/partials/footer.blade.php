@@ -5,64 +5,74 @@
 @include('theme::commons.back_to_top')
 
 <!-- Bottom Navigation for Mobile (Fixed at bottom) -->
-<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 block md:hidden">
-    <div class="flex justify-around py-2">
-        <a href="/" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
-            <i data-lucide="home" class="w-5 h-5 mb-1"></i>
-            <span class="text-xs">Beranda</span>
+<nav class="mobile-nav fixed bottom-0 left-0 right-0 p-3 z-50 block md:hidden">
+    <div class="bg-green-700 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+    <div class="flex justify-around items-center h-14 px-1">
+        <a href="/" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="home">
+            <i data-lucide="home" class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+            <span class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Beranda</span>
+            <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
         </a>
-        <a href="/" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
-            <i data-lucide="newspaper" class="w-5 h-5 mb-1"></i>
-            <span class="text-xs">Artikel</span>
+        <a href="/pembangunan" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="pembangunan">
+            <i data-lucide="building-2" class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+            <span class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Pembangunan</span>
+            <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
         </a>
-        <a href="/data-wilayah" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
-            <i data-lucide="bar-chart-3" class="w-5 h-5 mb-1"></i>
-            <span class="text-xs">Statistik</span>
+        <a href="/data-wilayah" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="statistik">
+            <i data-lucide="bar-chart-2" class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+            <span class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Statistik</span>
+            <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
         </a>
-        <a href="/peta" class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors">
-            <i data-lucide="map" class="w-5 h-5 mb-1"></i>
-            <span class="text-xs">Peta</span>
+        <a href="/peta" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="peta">
+            <i data-lucide="map-pin" class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+            <span class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Peta</span>
+            <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
         </a>
-        <button onclick="toggleSocialMenu()" 
-                class="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-green-700 transition-colors"
-                aria-label="Toggle social media menu">
-            <i data-lucide="share-2" class="w-5 h-5 mb-1"></i>
-            <span class="text-xs">Sosmed</span>
+        <button onclick="toggleSocialMenu()" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" aria-label="Toggle social media menu" data-nav="sosmed">
+            <i data-lucide="share-2" class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+            <span class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Sosmed</span>
+            <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
         </button>
+    </div>
     </div>
     
     <!-- Social Media Popup -->
-    <div id="social-popup" 
-         class="hidden absolute bottom-full left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg"
-         role="dialog"
-         aria-labelledby="social-popup-title">
-        <h4 id="social-popup-title" class="text-sm font-semibold text-gray-800 mb-3 text-center">
-            Ikuti Sosial Media Kami
-        </h4>
-        <div class="flex gap-3 justify-center mb-3 flex-wrap">
-            @if (isset($sosmed) && !empty($sosmed))
-                @foreach ($sosmed as $data)
-                    @if (!empty($data['link']))
-                        <a href="{{ $data['link'] }}" 
-                           class="bg-green-600 p-3 rounded-full hover:bg-green-500 transition-colors" 
-                           target="_blank" 
-                           rel="noopener"
-                           aria-label="Follow us on {{ ucfirst($data['nama']) }}">
-                            <i data-lucide="{{ $data['nama'] }}" class="w-5 h-5 text-white"></i>
-                        </a>
-                    @endif
-                @endforeach
-            @else
-                <p class="text-sm text-gray-500">Tidak ada sosial media tersedia</p>
-            @endif
+    <div id="social-popup" class="hidden absolute bottom-full left-3 right-3 mb-2 bg-green-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden" role="dialog" aria-labelledby="social-popup-title">
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h4 id="social-popup-title" class="text-sm font-semibold text-white">Ikuti Kami</h4>
+                <button onclick="toggleSocialMenu()" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-green-700 transition-colors" aria-label="Close">
+                    <i data-lucide="x" class="w-4 h-4 text-green-200"></i>
+                </button>
+            </div>
+            @php
+                $iconMap = [
+                    'youtube' => 'play-circle',
+                    'whatsapp' => 'phone',
+                    'telegram' => 'send',
+                    'tiktok' => 'music',
+                    'x' => 'twitter',
+                    'email' => 'mail',
+                    'website' => 'globe',
+                ];
+            @endphp
+            <div class="flex gap-3 justify-center flex-wrap">
+                @if (isset($sosmed) && !empty($sosmed))
+                    @foreach ($sosmed as $data)
+                        @if (!empty($data['link']))
+                            @php $icon = $iconMap[strtolower($data['nama'])] ?? strtolower($data['nama']); @endphp
+                            <a href="{{ $data['link'] }}" class="w-11 h-11 flex items-center justify-center rounded-xl bg-green-700 hover:bg-green-600 text-green-100 hover:text-white transition-all duration-200" target="_blank" rel="noopener" aria-label="{{ ucfirst($data['nama']) }}">
+                                <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
+                            </a>
+                        @endif
+                    @endforeach
+                @else
+                    <p class="text-sm text-green-200">Tidak ada sosial media</p>
+                @endif
+            </div>
         </div>
-        <button onclick="toggleSocialMenu()" 
-                class="w-full bg-gray-100 text-gray-600 py-2 px-4 rounded-lg text-sm hover:bg-gray-200 transition-colors"
-                aria-label="Close social media menu">
-            Tutup
-        </button>
     </div>
-</div>
+</nav>
 
 <!-- Main Footer -->
 <footer class="bg-green-700 text-white py-6 md:py-8" role="contentinfo">
@@ -249,31 +259,17 @@
 </footer>
 
 <style>
-    /* Mobile Bottom Padding */
     @media (max-width: 768px) {
-        body {
-            padding-bottom: 80px;
-        }
+        body { padding-bottom: 72px; }
     }
-    
-    /* Prevent text selection during interaction */
-    .fixed.bottom-0 {
-        user-select: none;
-        -webkit-user-select: none;
-    }
-    
-    /* Smooth transitions for popup */
-    #social-popup {
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-    }
-    
-    /* Touch-friendly button sizing */
+    .mobile-nav { user-select: none; -webkit-user-select: none; }
+    .mobile-nav .nav-item.active i,
+    .mobile-nav .nav-item.active span:not(.nav-indicator) { color: #fff; }
+    .mobile-nav .nav-item.active .nav-indicator { width: 20px; }
+    #social-popup { transform: translateY(8px); opacity: 0; transition: all 0.2s ease-out; }
+    #social-popup:not(.hidden) { transform: translateY(0); opacity: 1; }
     @media (pointer: coarse) {
-        .fixed.bottom-0 button,
-        .fixed.bottom-0 a {
-            min-height: 44px;
-            min-width: 44px;
-        }
+        .mobile-nav .nav-item { min-height: 44px; min-width: 44px; }
     }
 </style>
 
@@ -335,39 +331,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Bottom navigation active state with improved logic
+    // Bottom navigation active state
     function updateActiveNavigation() {
         const currentPath = window.location.pathname;
-        const currentSearch = window.location.search;
-        const fullUrl = currentPath + currentSearch;
+        const navItems = document.querySelectorAll('.mobile-nav .nav-item');
         
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
+        navItems.forEach(item => {
+            const href = item.getAttribute('href');
+            if (!href) return;
+            
             let isActive = false;
+            if (href === '/' && currentPath === '/') isActive = true;
+            else if (href !== '/' && currentPath.startsWith(href)) isActive = true;
             
-            // More precise matching logic
-            if (href === fullUrl) {
-                isActive = true;
-            } else if (href === '/' && currentPath === '/') {
-                isActive = true;
-            } else if (href !== '/' && currentPath.includes(href.replace(/^\//, ''))) {
-                isActive = true;
-            }
-            
-            // Update classes
-            if (isActive) {
-                link.classList.remove('text-gray-600');
-                link.classList.add('text-green-700');
-                link.setAttribute('aria-current', 'page');
-            } else {
-                link.classList.remove('text-green-700');
-                link.classList.add('text-gray-600');
-                link.removeAttribute('aria-current');
-            }
+            item.classList.toggle('active', isActive);
+            if (isActive) item.setAttribute('aria-current', 'page');
+            else item.removeAttribute('aria-current');
         });
     }
     
-    // Initialize active navigation
     updateActiveNavigation();
     
     // Update on navigation change (for SPAs)
