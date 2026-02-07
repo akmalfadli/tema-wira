@@ -48,30 +48,36 @@
 
 </div>
 
-{{-- Pemerintah Desa Popup --}}
+{{-- Pemerintah Desa Popup - COMPLETELY FIXED --}}
 <div id="pemerintah-popup" class="fixed inset-0 z-50 hidden">
 
+    {{-- Backdrop --}}
     <div
-        class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity"
+        class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity popup-overlay"
         onclick="closePopup()">
     </div>
 
-    <div class="fixed inset-0 flex items-center justify-center mt-16 z-50">
+    {{-- Popup Container - FIXED: Proper centering and padding --}}
+    <div class="fixed inset-0 flex items-center justify-center p-4 sm:p-6 z-50 pointer-events-none">
 
+        {{-- Popup Content - FIXED: All height constraints properly set --}}
         <div
-            class="pointer-events-auto relative max-w-5xl
+            class="pointer-events-auto relative w-full max-w-6xl
                 bg-white shadow-2xl
                 rounded-2xl sm:rounded-3xl
-                max-h-[80vh]
-                flex flex-col overflow-hidden"
+                flex flex-col
+                popup-content"
+            style="max-height: 80vh;"
             onclick="event.stopPropagation()">
 
-            <div class="absolute top-0 right-0 z-20 p-4">
+            {{-- Close Button --}}
+            <div class="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
                 <button
                     class="w-10 h-10 rounded-full
-                           bg-white/80 backdrop-blur
+                           bg-white/90 backdrop-blur
                            flex items-center justify-center
-                           shadow hover:scale-110 active:scale-95 transition"
+                           shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 
+                           transition-all duration-200"
                     onclick="closePopup()">
                     <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -81,10 +87,10 @@
             </div>
 
             <div id="pemerintah-list"
-                 class="flex-1 min-h-0
-                        px-2 py-4 sm:px-4 sm:py-5
-                        custom-scrollbar">
+                 class="overflow-y-auto custom-scrollbar w-full"
+                 style="max-height: 80vh; min-height: 200px;">
 
+                {{-- Loading State --}}
                 <div class="flex items-center justify-center py-20">
                     <div class="text-center">
                         <div class="relative inline-block">
@@ -164,30 +170,45 @@
 
 <style>
 /* ========================================
-   PEMERINTAH POPUP STYLES - ENHANCED
+   PEMERINTAH POPUP STYLES - COMPLETELY FIXED
    ======================================== */
 
-/* Custom Scrollbar */
+/* CRITICAL: Custom Scrollbar Styles */
+.custom-scrollbar {
+    /* Force scrollbar to always be visible */
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
+    background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f5f9;
     border-radius: 10px;
+    margin: 10px 0;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #16a34a, #15803d);
     border-radius: 10px;
-    transition: background 0.3s;
+    border: 3px solid #f1f5f9;
+    transition: all 0.3s ease;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #15803d, #166534);
+    border: 2px solid #f1f5f9;
 }
 
-/* Firefox scrollbar */
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #166534, #14532d);
+}
+
+/* Firefox */
 .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #16a34a #f1f5f9;
@@ -216,43 +237,48 @@
     #pemerintah-popup .popup-content {
         transform: translateY(100%);
         opacity: 1;
+        max-height: 85vh !important;
     }
     
     #pemerintah-popup.show .popup-content {
         transform: translateY(0);
     }
+    
+    #pemerintah-list {
+        max-height: 85vh !important;
+    }
 }
 
-/* Desktop - Scale and Fade - Ensure it fits screen */
+/* Desktop - Scale and Fade */
 @media (min-width: 640px) {
-    #pemerintah-popup .popup-container {
-        padding: 1rem;
-    }
-    
     #pemerintah-popup .popup-content {
         transform: scale(0.9) translateY(20px);
         opacity: 0;
-        max-height: 90vh;
-        width: 95vw;
-        max-width: 80rem;
+        max-height: 85vh !important;
     }
     
     #pemerintah-popup.show .popup-content {
         transform: scale(1) translateY(0);
         opacity: 1;
     }
-}
-
-/* Ensure content doesn't overflow */
-@media (min-width: 640px) and (max-height: 800px) {
-    #pemerintah-popup .popup-content {
-        max-height: 85vh;
+    
+    #pemerintah-list {
+        max-height: 85vh !important;
     }
 }
 
-@media (min-width: 640px) and (max-height: 600px) {
-    #pemerintah-popup .popup-content {
-        max-height: 80vh;
+/* Short screens */
+@media (max-height: 700px) {
+    #pemerintah-popup .popup-content,
+    #pemerintah-list {
+        max-height: 80vh !important;
+    }
+}
+
+@media (max-height: 600px) {
+    #pemerintah-popup .popup-content,
+    #pemerintah-list {
+        max-height: 75vh !important;
     }
 }
 
@@ -356,12 +382,12 @@
 }
 
 /* Status Badge Animation */
-.pemerintah-item .absolute.bottom-1.right-1 {
+.pemerintah-item .status-badge {
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pemerintah-item:hover .absolute.bottom-1.right-1 {
-    transform: scale(1.2);
+.pemerintah-item:hover .status-badge {
+    transform: scale(1.1);
 }
 
 /* Status Dot Pulse */
@@ -376,7 +402,7 @@
     }
 }
 
-.pemerintah-item .bg-green-500 {
+.status-dot-green {
     animation: statusPulse 2s infinite;
 }
 
@@ -526,14 +552,12 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // ========================================
-    // PEMERINTAH DESA POPUP - ENHANCED
+    // PEMERINTAH DESA POPUP - COMPLETELY FIXED
     // ========================================
     
     const btnPemerintah = document.getElementById('btn-pemerintah-desa');
     const popup = document.getElementById('pemerintah-popup');
-    const closeBtn = document.getElementById('close-pemerintah-popup');
     const pemerintahList = document.getElementById('pemerintah-list');
-    const overlay = popup?.querySelector('.popup-overlay');
     
     let pemerintahData = [];
     
@@ -556,19 +580,19 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/internal_api/pemerintah')
             .then(response => response.json())
             .then(data => {
-                console.log('Pemerintah Desa:', data);
+                console.log('Pemerintah Desa Data:', data);
                 pemerintahData = data.data;
                 renderPemerintah(pemerintahData);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching pemerintah:', error);
                 showError();
             });
     }
     
     function showError() {
         pemerintahList.innerHTML = `
-            <div class="flex items-center justify-center py-16 empty-state">
+            <div class="flex items-center justify-center min-h-[400px] empty-state">
                 <div class="text-center">
                     <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -583,8 +607,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderPemerintah(data) {
         if (!data || data.length === 0) {
             pemerintahList.innerHTML = `
-                <div class="flex items-center justify-center py-16 empty-state">
-                    <div class="text-center">
+                <div class="flex items-center justify-center min-h-[400px] empty-state">
+                    <div class="text-center px-4">
                         <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -596,9 +620,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Flexbox layout: left to right, center aligned when wrapping to multiple lines
-        let html = '<h2 class="text-xl sm:text-2xl text-center mt-16">Aparatur Desa</h2><h2 class="text-base text-white text-center p-2 mb-16 sm:mb-8"><div class="inline-block bg-green-600 px-4 py-2 rounded-full">Pemerintah {{ ucfirst(setting('sebutan_desa')) }} {{ ucwords($desa['nama_desa']) }}</div></h2>';
-        html += '<div class="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 mb-8">';
+        let html = `
+            <div class="w-full px-4 sm:px-6 py-6 sm:py-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-xl sm:text-xl lg:text-2xl font-bold text-gray-900">
+                        Aparatur Desa
+                    </h2>
+                    <div class="inline-block bg-green-600 px-6 py-2.5 rounded-full shadow-lg">
+                        <span class="text-white font-bold text-sm px-1.5 sm:text-base">
+                            Pemerintah {{ ucfirst(setting('sebutan_desa')) }} {{ ucwords($desa['nama_desa']) }}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 pb-8">
+        `;
         
         data.forEach((item, index) => {
             const attr = item.attributes;
@@ -611,31 +647,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const statusColor = isHadir ? 'bg-green-500' : 'bg-yellow-400';
             const statusText = isHadir ? 'text-green-600' : 'text-gray-500';
             const statusBg = isHadir ? 'bg-green-50' : 'bg-yellow-50';
+            const statusDotClass = isHadir ? 'status-dot-green' : '';
 
             html += `
-                <div class="pemerintah-item group w-23 sm:w-20 lg:w-36 flex-shrink-0" style="animation-delay: ${index * 0.04}s">
+                <div class="pemerintah-item group w-24 sm:w-28 lg:w-36 flex-shrink-0" style="animation-delay: ${index * 0.04}s">
                     
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 mx-auto mb-3 sm:mb-4">
                         <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200 group-hover:ring-green-500 transition-all duration-300 shadow-md group-hover:shadow-xl">
-                            <img src="${foto}" alt="${nama}" 
+                            <img src="${foto}" 
+                                 alt="${nama}" 
                                  class="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0"
                                  onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=f1f5f9&color=64748b&size=200&bold=true'">
                         </div>
-                        
-                        
                     </div>
 
-                    <div class="w-full px-0.5 sm:px-1">
-                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm lg:text-base leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-[2.5rem] group-hover:text-green-700 transition-colors text-center">
+                    <div class="w-full px-1">
+                        <h4 class="font-bold text-gray-900 text-xs sm:text-sm lg:text-base leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-[2.5rem] group-hover:text-green-700 transition-colors text-center mb-1">
                             ${nama}
                         </h4>
                         <p class="text-[10px] sm:text-xs lg:text-sm font-semibold text-green-700 tracking-tight mb-2 sm:mb-3 line-clamp-2 text-center">
                             ${jabatan}
                         </p>
                         
-                        <div class="flex items-center justify-center gap-1 px-2 py-1 ${statusBg} rounded-full">
-                            <span class="w-2 h-2 rounded-full ${statusColor} mr-2"></span>
-                            <span class="text-xs ${statusText}">
+                        <div class="flex items-center justify-center gap-1.5 px-2 py-1.5 ${statusBg} rounded-full status-badge">
+                            <span class="w-2 h-2 rounded-full ${statusColor} ${statusDotClass}"></span>
+                            <span class="text-[10px] sm:text-xs ${statusText} font-medium">
                                 ${statusKehadiran}
                             </span>
                         </div>
@@ -644,29 +680,32 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         });
         
-        html += '</div>';
+        html += `
+                </div>
+            </div>
+        `;
+        
         pemerintahList.innerHTML = html;
+        
+        // Force scroll reset to top
+        pemerintahList.scrollTop = 0;
+        
+        console.log('Rendered', data.length, 'pemerintah items');
+        console.log('Scroll height:', pemerintahList.scrollHeight, 'Client height:', pemerintahList.clientHeight);
     }
     
     // Event Listeners
     if (btnPemerintah) {
         btnPemerintah.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Opening pemerintah popup...');
             openPopup();
-        });
-    }
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            window.closePopup();
         });
     }
     
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
-        if (!popup.classList.contains('hidden')) {
+        if (popup && !popup.classList.contains('hidden')) {
             if (e.key === 'Escape') {
                 e.preventDefault();
                 window.closePopup();
