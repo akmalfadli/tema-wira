@@ -1,12 +1,12 @@
 {
-    "name": "themes/perwira",
+    "name": "themes/wira",
     "type": "library",
     "description": "Perwira Theme",
     "homepage": "https://github.com/akmalfadli/",
     "license": "GPL-3.0-or-later",
     "keywords": [
         "Themes",
-        "Perwira",
+        "Wira",
         "OpenSID"
     ],
     "authors": [

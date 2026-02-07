@@ -3,7 +3,7 @@
         width: max-content;
     }
 </style>
-<nav class="bg-primary-100 text-white text-sm hidden lg:block" role="navigation">
+<nav class="bg-primary-100 text-black text-sm hidden lg:block" role="navigation">
     <ul>
         @if (menu_tema())
             @foreach (menu_tema() as $menu)
@@ -22,13 +22,13 @@
                     </a>
 
                     @if ($has_dropdown)
-                        <ul class="absolute top-full width-full bg-white text-gray-700 shadow-lg invisible transform transition duration-200 origin-top" :class="{ 'opacity-0 invisible z-[-10] scale-y-50': !dropdown, 'opacity-100 visible z-[9999] scale-y-100': dropdown }" x-transition
+                        <ul class="absolute top-full width-full bg-green text-gray-700 shadow-lg invisible transform transition duration-200 origin-top" :class="{ 'opacity-0 invisible z-[-10] scale-y-50': !dropdown, 'opacity-100 visible z-[9999] scale-y-100': dropdown }" x-transition
                             @mouseover="dropdown = true" @mouseleave="dropdown = false"
                         >
 
                             @foreach ($menu['childrens'] as $childrens)
                                 @if ($childrens['childrens'])
-                                    <li class="inline-block relative"><a href="{{ $childrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-white">{{ $childrens['nama'] }}
+                                    <li class="inline-block relative"><a href="{{ $childrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-green">{{ $childrens['nama'] }}
                                             @if ($has_dropdown)
                                                 <i class="fas fa-chevron-left text-xs ml-1 inline-block transition duration-300" :class="{ 'transform rotate-180': dropdown }"></i>
                                             @endif
@@ -52,12 +52,12 @@
                                             </a>
 
                                             @if ($bhas_dropdown)
-                                                <ul class="absolute top-full width-full bg-white text-gray-700 shadow-lg invisible transform transition duration-200 origin-top" :class="{ 'opacity-0 invisible z-[-10] scale-y-50': !dropdown, 'opacity-100 visible z-[9999] scale-y-100': dropdown }"
+                                                <ul class="absolute top-full width-full bg-green text-gray-700 shadow-lg invisible transform transition duration-200 origin-top" :class="{ 'opacity-0 invisible z-[-10] scale-y-50': !dropdown, 'opacity-100 visible z-[9999] scale-y-100': dropdown }"
                                                     x-transition @mouseover="dropdown = true" @mouseleave="dropdown = false"
                                                 >
 
                                                     @foreach ($bmenu['childrens'] as $bchildrens)
-                                                        <li><a href="{{ $bchildrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-white">{{ $bchildrens['nama'] }}</a></li>
+                                                        <li><a href="{{ $bchildrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-green">{{ $bchildrens['nama'] }}</a></li>
                                                     @endforeach
 
                                                 </ul>
@@ -65,7 +65,7 @@
                                         </li>
                                     @endforeach
                                 @else
-                                    <li><a href="{{ $childrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-white">{{ $childrens['nama'] }}</a></li>
+                                    <li><a href="{{ $childrens['link_url'] }}" class="block py-3 pl-5 pr-4 hover:bg-primary-200 hover:text-green">{{ $childrens['nama'] }}</a></li>
                                 @endif
                             @endforeach
 

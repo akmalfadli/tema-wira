@@ -1,4 +1,4 @@
-/*! Tema Perwira | GPL-3.0 License | Akmal Fadli <teknologiperwira@gmail.com> & OpenDesa (https://opendesa.id) */
+/*! Tema Wira | GPL-3.0 License | Akmal Fadli <akmalfadli94@gmail.com> & OpenDesa (https://opendesa.id) */
 /*! tailwindcss v3.0.22 | MIT License | https://tailwindcss.com */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -4891,6 +4891,10 @@ article .box>div:nth-child(2) .table-responsive table, article .box>div:nth-chil
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-green {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 .bg-primary-100 {
   background-color: var(--primary-base-color);

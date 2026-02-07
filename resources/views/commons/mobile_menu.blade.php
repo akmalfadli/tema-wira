@@ -1,10 +1,10 @@
-<div class="lg:hidden" x-data="{ menuOpen: false }" @keydown.escape.window="menuOpen = false">
+<div class="lg:hidden items-center" x-data="{ menuOpen: false }" @keydown.escape.window="menuOpen = false">
     <!-- Mobile Menu Toggle Button -->
     <button type="button" 
-            class="flex items-center space-x-1 text-white hover:text-gray-200 focus:outline-none md:hidden"
+            class="flex items-center space-x-1 text-green hover:text-gray-200 focus:outline-none md:hidden"
             @click="menuOpen = !menuOpen; $nextTick(() => { document.body.style.overflow = menuOpen ? 'hidden' : 'auto'; })">
-        <i class="fas transition-transform duration-300" :class="{ 'fa-bars': !menuOpen, 'fa-times': menuOpen }"></i>
-        <span class="text-sm uppercase">Menu</span>
+        <i class="fas text-white transition-transform duration-300" :class="{ 'fa-bars': !menuOpen, 'fa-times': menuOpen }"></i>
+        <span class="text-white text-sm uppercase">Menu</span>
     </button>
 
     <!-- Mobile Menu Overlay -->

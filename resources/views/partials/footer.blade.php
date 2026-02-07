@@ -118,7 +118,7 @@
                                class="text-green-300 hover:text-pink-200 transition-colors" 
                                target="_blank" 
                                rel="noopener">
-                                Tema Perwira {{ $themeVersion }}
+                                Tema Wira {{ $themeVersion }}
                             </a>
                         </p>
                     @endif
@@ -239,7 +239,7 @@
                        class="underline decoration-pink-500 underline-offset-1 decoration-2 hover:text-pink-200 transition-colors" 
                        target="_blank" 
                        rel="noopener">
-                        Tema Perwira {{ $themeVersion }}
+                        Tema Wira {{ $themeVersion }}
                     </a>
                 @endif
                 @if (isset($themeVersion) && function_exists('ambilVersi'))

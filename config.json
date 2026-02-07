@@ -1,3 +1,5 @@
+
+
 [
     {
      "judul": "Url CCTV Online",
@@ -9,5 +11,130 @@
         "readonly": false,
         "link": true,
         "group": "Pembangunan"
+    },
+    {
+        "judul": "Gaya tampilan beranda",
+        "key": "home_style",
+        "value": "beranda",
+        "type": "select",
+        "keterangan": "Gaya tampilan beranda yang akan digunakan pada website",
+        "options": {
+        "beranda": "Tampilan beranda penuh",
+        "beranda2": "Tampilan beranda boxy"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Warna Pilihan Tema",
+        "key": "theme_color",
+        "value": "custom",
+        "type": "select",
+        "keterangan": "Warna pilihan tema yang akan digunakan pada website",
+        "options": {
+        "emerald-green": "Emerald Green",
+        "blue-sky": "Blue Sky",
+        "spirit-red": "Spirit Red",
+        "teal-wise": "Teal Wise",
+        "navy-blue": "Navy Blue",
+        "pale-indigo": "Pale Indigo",
+        "fruity-orange": "Fruity Orange",
+        "dark-brown": "Dark Brown",
+        "midnight-green": "Midnight Green",
+        "custom": "Warna custom (sesuai keinginan)"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Warna Utama Custom",
+        "key": "primary_color",
+        "value": "#155e75",
+        "type": "color-picker",
+        "keterangan": "Warna utama (hanya aktif jika memilih custom pada bidang `Warna Pilihan Tema`)",
+        "options": null,
+        "readonly": false
+    },
+    {
+        "judul": "Warna Pendamping Custom",
+        "key": "secondary_color",
+        "value": "#0891b2",
+        "type": "color-picker",
+        "keterangan": "Warna pendamping (hanya aktif jika memilih custom pada bidang `Warna Pilihan Tema`)",
+        "options": null,
+        "readonly": false
+    },
+    {
+        "judul": "Warna Aksen Custom",
+        "key": "accent_color",
+        "value": "#ca8a04",
+        "type": "color-picker",
+        "keterangan": "Warna aksen (hanya aktif jika memilih custom pada bidang `Warna Pilihan Tema`)",
+        "options": null,
+        "readonly": false
+    },
+    {
+        "judul": "Jadwal Shalat",
+        "key": "tampilkan_jadwal_shalat",
+        "value": "1",
+        "type": "select",
+        "keterangan": "Tampilkan jadwal shalat di beranda",
+        "options": {
+        "1": "Ya",
+        "0": "Tidak"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Pintasan Tautan",
+        "key": "shortcut_links",
+        "value": "1",
+        "type": "select",
+        "keterangan": "Tampilkan pintasan tautan di beranda",
+        "options": {
+        "1": "Ya",
+        "0": "Tidak"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Pemerintah dan Aparatur Desa",
+        "key": "village_staffs",
+        "value": "1",
+        "type": "select",
+        "keterangan": "Tampilkan Pemerintah dan Aparatur Desa di beranda",
+        "options": {
+        "1": "Ya",
+        "0": "Tidak"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Widget Layanan Mandiri",
+        "key": "layanan_mandiri",
+        "value": "1",
+        "type": "select",
+        "keterangan": "Tampilkan widget layanan mandiri di beranda",
+        "options": {
+        "1": "Ya",
+        "0": "Tidak"
+        },
+        "attributes": {
+        "class": "select2"
+        },
+        "readonly": false
     }
 ]

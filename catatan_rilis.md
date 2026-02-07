@@ -1,6 +1,6 @@
 Catatan Rilis v26.01:
 
-Ini adalah tema Perwira yang dibuat untuk aplikasi Sistem Informasi Desa OpenSID
+Ini adalah tema Wira yang dibuat untuk aplikasi Sistem Informasi Desa OpenSID
 
 ### BUG :
 
