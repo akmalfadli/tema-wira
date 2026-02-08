@@ -96,7 +96,7 @@
 
     <!-- Toggle Button -->
     <button id="toggle-chat"
-        class="group mb-16 p-3 rounded-full transition-all duration-300 pointer-events-auto flex items-center justify-center gap-2 relative overflow-hidden animate-pulse-green">
+        class="group mb-8 p-3 rounded-full transition-all duration-300 pointer-events-auto flex items-center justify-center gap-2 relative overflow-hidden animate-pulse-green">
         <span
             class="absolute hover:scale-105 inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
         <img src="{{ theme_asset('icons/ai-icon.png') }}" class="w-10 h-10 relative z-10 object-cover rounded-full">
@@ -298,7 +298,7 @@
             assistant = new DesaAIAssistant({
                 apiUrl: 'http://ai-assistant.digidesa.id/', // Replace with actual API URL if different
                 apiKey: '1b7b39be-a750-48ad-9090-629b1c6fd6e9',
-                villageUrl: {{base_url()}} || window.location.origin
+                villageUrl: "{{ site_url('/') }}" || window.location.origin
             });
             console.log('DesaAIAssistant Initialized:', assistant);
         } catch (e) {
