@@ -1,0 +1,176 @@
+/**
+ * Desa AI Assistant - JavaScript client for Laravel Blade
+ * 
+ * Usage:
+ * 1. Include this script in your Blade template
+ * 2. Initialize the assistant with your configuration
+ * 3. Call sendMessage() to chat with the AI
+ * 
+ * Example:
+ * ```html
+ * <script src="/js/desa-ai-assistant.js"></script>
+ * <script>
+ *   const assistant = new DesaAIAssistant({
+ *     apiUrl: 'https://your-fastapi-server.com',
+ *     apiKey: '{{ config("services.desa_ai.key") }}',
+ *     villageUrl: '{{ config("app.opensid_url") }}'
+ *   });
+ *   
+ *   // Send message
+ *   assistant.sendMessage('Siapa kepala desa?', (content) => {
+ *     // Handle each chunk of the response
+ *     document.getElementById('response').textContent += content;
+ *   });
+ * </script>
+ * ```
+ */
+
+class DesaAIAssistant {
+    constructor(options) {
+        this.apiUrl = options.apiUrl || '';
+        this.apiKey = options.apiKey || '';
+        this.villageUrl = options.villageUrl || '';
+        this.conversationHistory = [];
+    }
+
+    /**
+     * Send a message to the AI assistant
+     * @param {string} message - The user's message
+     * @param {function} onChunk - Callback for each response chunk
+     * @param {function} onComplete - Callback when response is complete
+     * @param {function} onError - Callback for errors
+     */
+    async sendMessage(message, onChunk, onComplete = null, onError = null) {
+        try {
+            const response = await fetch(`${this.apiUrl}/api/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': this.apiKey
+                },
+                body: JSON.stringify({
+                    village_url: this.villageUrl,
+                    message: message,
+                    conversation_history: this.conversationHistory,
+                    stream: true
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Request failed');
+            }
+
+            // Handle SSE stream
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let fullResponse = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.slice(6));
+
+                            if (data.content) {
+                                fullResponse += data.content;
+                                if (onChunk) onChunk(data.content);
+                            }
+
+                            if (data.done) {
+                                // Add to conversation history
+                                this.conversationHistory.push(
+                                    { role: 'user', content: message },
+                                    { role: 'assistant', content: fullResponse }
+                                );
+
+                                // Keep history limited
+                                if (this.conversationHistory.length > 20) {
+                                    this.conversationHistory = this.conversationHistory.slice(-20);
+                                }
+
+                                if (onComplete) onComplete(fullResponse, data.cached);
+                            }
+                        } catch (e) {
+                            console.warn('Failed to parse SSE data:', e);
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('DesaAIAssistant error:', error);
+            if (onError) onError(error);
+        }
+    }
+
+    /**
+     * Send a message and get a non-streaming response
+     * @param {string} message - The user's message
+     * @returns {Promise<object>} - The response object
+     */
+    async sendMessageSync(message) {
+        const response = await fetch(`${this.apiUrl}/api/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': this.apiKey
+            },
+            body: JSON.stringify({
+                village_url: this.villageUrl,
+                message: message,
+                conversation_history: this.conversationHistory,
+                stream: false
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Request failed');
+        }
+
+        const data = await response.json();
+
+        // Add to conversation history
+        this.conversationHistory.push(
+            { role: 'user', content: message },
+            { role: 'assistant', content: data.response }
+        );
+
+        return data;
+    }
+
+    /**
+     * Clear the conversation history
+     */
+    clearHistory() {
+        this.conversationHistory = [];
+    }
+
+    /**
+     * Clear the server-side cache for this village
+     */
+    async clearCache() {
+        const response = await fetch(
+            `${this.apiUrl}/api/cache/${encodeURIComponent(this.villageUrl)}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'X-API-Key': this.apiKey
+                }
+            }
+        );
+
+        return response.json();
+    }
+}
+
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = DesaAIAssistant;
+}

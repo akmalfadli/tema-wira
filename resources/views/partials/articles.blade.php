@@ -4,21 +4,21 @@
 <div class="flex flex-col gap-4 mb-6">
 
     <div class="flex flex-wrap gap-2">
-        <a href="#"
+        <a href="/status-idm/2024"
            class="px-4 py-1.5 text-sm font-semibold text-gray-900
                      border border-green-700 rounded-full
                       hover:bg-green-700 hover:text-white
                      transition">
             IDM
           </a>
-        <a href="#"
+        <a href="/galeri"
             class="px-4 py-1.5 text-sm font-semibold text-gray-900
                    border border-green-700 rounded-full
                    hover:bg-green-700 hover:text-white
                   transition">
                Galeri
          </a>
-         <a href="#"
+         <a href="/peta"
             class="px-4 py-1.5 text-sm font-semibold text-gray-900
                    border border-green-700 rounded-full
                   hover:bg-green-700 hover:text-white
