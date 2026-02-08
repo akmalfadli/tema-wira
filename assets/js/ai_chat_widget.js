@@ -209,8 +209,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const sendBtn = document.getElementById('send-btn');
     const tooltip = document.getElementById('ai-chat-tooltip');
 
+    // JDIH Elements
+    const jdihSearchPanel = document.getElementById('jdih-search-panel');
+    const jdihResultsContainer = document.getElementById('jdih-results-container');
+    const jdihSearchForm = document.getElementById('jdih-search-form');
+    const jdihSearchBtn = document.getElementById('jdih-search-btn');
+    const exitJdihModeBtn = document.getElementById('exit-jdih-mode');
+    const toggleJdihFiltersBtn = document.getElementById('toggle-jdih-filters');
+    const jdihAdvancedFilters = document.getElementById('jdih-advanced-filters');
+    const filterArrow = document.getElementById('filter-arrow');
+
     let assistant = null;
     let isChatOpen = false;
+    let isJdihMode = false;
 
     // Show tooltip on load
     if (tooltip) {
@@ -351,6 +362,136 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleBtn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
 
+    // ========================================
+    // JDIH MODE HANDLERS
+    // ========================================
+
+    /**
+     * Enter JDIH search mode
+     */
+    function enterJdihMode(initialKeywords = '') {
+        isJdihMode = true;
+
+        // Show JDIH panel and results container
+        if (jdihSearchPanel) {
+            jdihSearchPanel.classList.remove('hidden');
+            jdihSearchPanel.classList.add('flex');
+        }
+        if (jdihResultsContainer) {
+            jdihResultsContainer.classList.remove('hidden');
+        }
+
+        // Hide chat messages and input
+        if (messagesContainer) {
+            messagesContainer.classList.add('hidden');
+        }
+
+        // Pre-fill keywords if provided
+        const keywordsInput = document.getElementById('jdih-keywords');
+        if (keywordsInput && initialKeywords) {
+            keywordsInput.value = initialKeywords;
+        }
+
+        // Expand chat for better view
+        expandChat();
+    }
+
+    /**
+     * Exit JDIH search mode
+     */
+    function exitJdihMode() {
+        isJdihMode = false;
+
+        // Hide JDIH panel and results container
+        if (jdihSearchPanel) {
+            jdihSearchPanel.classList.add('hidden');
+            jdihSearchPanel.classList.remove('flex');
+        }
+        if (jdihResultsContainer) {
+            jdihResultsContainer.classList.add('hidden');
+            jdihResultsContainer.innerHTML = '';
+        }
+
+        // Show chat messages
+        if (messagesContainer) {
+            messagesContainer.classList.remove('hidden');
+        }
+
+        // Clear JDIH form
+        if (jdihSearchForm) {
+            jdihSearchForm.reset();
+        }
+
+        // Collapse advanced filters
+        if (jdihAdvancedFilters) {
+            jdihAdvancedFilters.classList.add('hidden');
+        }
+        if (filterArrow) {
+            filterArrow.classList.remove('rotate-180');
+        }
+    }
+
+    // Exit JDIH mode button
+    if (exitJdihModeBtn) {
+        exitJdihModeBtn.addEventListener('click', exitJdihMode);
+    }
+
+    // Toggle advanced filters
+    if (toggleJdihFiltersBtn && jdihAdvancedFilters && filterArrow) {
+        toggleJdihFiltersBtn.addEventListener('click', function () {
+            jdihAdvancedFilters.classList.toggle('hidden');
+            filterArrow.classList.toggle('rotate-180');
+        });
+    }
+
+    // JDIH Search Form Submit
+    if (jdihSearchForm) {
+        jdihSearchForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(jdihSearchForm);
+            const params = {
+                keywords: formData.get('keywords') || '',
+                tentang: formData.get('tentang') || '',
+                nomor: formData.get('nomor') || '',
+                tahun: formData.get('tahun') || '',
+                jenis: formData.get('jenis') || ''
+            };
+
+            // Show loading state
+            if (jdihSearchBtn) {
+                jdihSearchBtn.disabled = true;
+                jdihSearchBtn.innerHTML = '<span class="animate-spin">⏳</span> Mencari...';
+            }
+            if (jdihResultsContainer) {
+                jdihResultsContainer.innerHTML = '<div class="text-center py-8"><div class="animate-pulse text-4xl mb-2">🔍</div><p class="text-gray-500">Mencari peraturan...</p></div>';
+            }
+
+            try {
+                const results = await searchJdih(params);
+                if (jdihResultsContainer) {
+                    jdihResultsContainer.innerHTML = renderJdihResults(results.data, results.meta);
+                }
+            } catch (error) {
+                console.error('JDIH Search Error:', error);
+                if (jdihResultsContainer) {
+                    jdihResultsContainer.innerHTML = `
+                        <div class="text-center py-8">
+                            <div class="text-4xl mb-2">⚠️</div>
+                            <p class="text-red-500 font-medium">Gagal mencari peraturan</p>
+                            <p class="text-sm text-gray-500 mt-1">${error.message || 'Terjadi kesalahan. Silakan coba lagi.'}</p>
+                        </div>
+                    `;
+                }
+            } finally {
+                if (jdihSearchBtn) {
+                    jdihSearchBtn.disabled = false;
+                    jdihSearchBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Cari Peraturan';
+                }
+            }
+        });
+    }
+
     // Auto-resize textarea
     chatInput.addEventListener('input', function () {
         this.style.height = 'auto';
@@ -428,29 +569,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if this is a JDIH search
         if (isJdihSearchMode(message)) {
-            // JDIH Search Mode
-            const aiResponseContainer = addMessage('assistant', '<span class="animate-pulse">🔍 Mencari peraturan...</span>');
+            // Switch to JDIH Advanced Search Mode
+            const keywords = extractJdihKeywords(message);
 
-            try {
-                sendBtn.disabled = true;
-                const keywords = extractJdihKeywords(message);
-                const results = await searchJdih({ keywords: keywords });
+            // Add assistant message to guide user
+            addMessage('assistant', '📚 Membuka pencarian peraturan JDIH...\n\nSaya akan membuka panel pencarian peraturan. Anda bisa menggunakan filter lanjutan untuk pencarian yang lebih spesifik.');
 
-                // Render results
-                aiResponseContainer.innerHTML = renderJdihResults(results.data, results.meta);
-                expandChat();
-                scrollToBottom();
-            } catch (error) {
-                console.error('JDIH Error:', error);
-                aiResponseContainer.innerHTML = `
-                    <div class="text-red-500">
-                        <p class="font-medium">⚠️ Gagal mencari peraturan</p>
-                        <p class="text-sm mt-1">${error.message || 'Terjadi kesalahan. Silakan coba lagi.'}</p>
-                    </div>
-                `;
-            } finally {
-                sendBtn.disabled = false;
-            }
+            // Enter JDIH mode with extracted keywords
+            setTimeout(() => {
+                enterJdihMode(keywords);
+            }, 500);
+
+            return;
         } else if (assistant) {
             // Normal AI Chat Mode
             const aiResponseContainer = addMessage('assistant', '<span class="animate-pulse">Sedang mengetik...</span>');

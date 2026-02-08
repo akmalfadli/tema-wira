@@ -25,6 +25,97 @@
             </button>
         </div>
 
+        {{-- JDIH Search Mode Panel (Hidden by default) --}}
+        <div id="jdih-search-panel"
+            class="hidden flex-col bg-gradient-to-b from-green-50 to-white border-b border-gray-200">
+            {{-- Mode Toggle Header --}}
+            <div class="flex items-center justify-between p-3 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">📚</span>
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-800">Pencarian Peraturan JDIH</h4>
+                        <p class="text-xs text-gray-500">Database peraturan.bpk.go.id</p>
+                    </div>
+                </div>
+                <button id="exit-jdih-mode"
+                    class="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 rounded hover:bg-gray-100 transition">
+                    ← Kembali ke Chat
+                </button>
+            </div>
+
+            {{-- Search Form --}}
+            <form id="jdih-search-form" class="p-3 space-y-3">
+                {{-- Main Search --}}
+                <div>
+                    <label class="text-xs font-medium text-gray-600 mb-1 block">Kata Kunci</label>
+                    <input type="text" name="keywords" id="jdih-keywords"
+                        placeholder="Contoh: PERBUP PURBALINGGA, dana desa..."
+                        class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white">
+                </div>
+
+                {{-- Advanced Filters Toggle --}}
+                <button type="button" id="toggle-jdih-filters"
+                    class="flex items-center gap-1 text-xs text-green-600 hover:text-green-700 font-medium">
+                    <svg class="w-4 h-4 transition-transform" id="filter-arrow" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                    Filter Lanjutan
+                </button>
+
+                {{-- Advanced Filters (Hidden by default) --}}
+                <div id="jdih-advanced-filters" class="hidden space-y-3 pt-2 border-t border-gray-100">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-xs font-medium text-gray-600 mb-1 block">Tentang</label>
+                            <input type="text" name="tentang" id="jdih-tentang" placeholder="Subjek peraturan..."
+                                class="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white">
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600 mb-1 block">Nomor</label>
+                            <input type="text" name="nomor" id="jdih-nomor" placeholder="10, 15..."
+                                class="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-xs font-medium text-gray-600 mb-1 block">Tahun</label>
+                            <input type="text" name="tahun" id="jdih-tahun" placeholder="2024,2025..."
+                                class="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white">
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600 mb-1 block">Jenis</label>
+                            <select name="jenis" id="jdih-jenis"
+                                class="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white">
+                                <option value="">Semua Jenis</option>
+                                <option value="23">Peraturan Bupati</option>
+                                <option value="22">Peraturan Daerah</option>
+                                <option value="24">Peraturan Gubernur</option>
+                                <option value="3">Peraturan Menteri</option>
+                                <option value="1">Undang-Undang</option>
+                                <option value="2">Peraturan Pemerintah</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Search Button --}}
+                <button type="submit" id="jdih-search-btn"
+                    class="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Cari Peraturan
+                </button>
+            </form>
+        </div>
+
+        {{-- JDIH Results Container (replaces messages in JDIH mode) --}}
+        <div id="jdih-results-container" class="hidden flex-1 overflow-y-auto p-4 bg-gray-50">
+            {{-- Results will be injected here --}}
+        </div>
+
         <!-- Messages Area -->
         <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth">
             <!-- Welcome Message -->
@@ -39,6 +130,8 @@
                         {{ ucwords($desa['nama_desa']) }}. Ada yang bisa saya bantu terkait
                         informasi desa?
                     </p>
+                    <p class="text-xs text-gray-500 mt-2">💡 <em>Tip: Ketik "cari peraturan" untuk membuka pencarian
+                            JDIH</em></p>
                 </div>
             </div>
         </div>
