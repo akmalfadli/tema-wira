@@ -296,9 +296,9 @@
         // Initialize Assistant
         try {
             assistant = new DesaAIAssistant({
-                apiUrl: 'http://localhost:8000', // Replace with actual API URL if different
+                apiUrl: 'http://ai-assistant.digidesa.id/', // Replace with actual API URL if different
                 apiKey: '1b7b39be-a750-48ad-9090-629b1c6fd6e9',
-                villageUrl: "https://timbang-purbalingga.digidesa.id" || window.location.origin
+                villageUrl: {{base_url()}} || window.location.origin
             });
             console.log('DesaAIAssistant Initialized:', assistant);
         } catch (e) {
