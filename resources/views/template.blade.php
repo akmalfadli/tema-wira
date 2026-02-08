@@ -40,7 +40,9 @@
 
                     @include('theme::partials.articles')
                     @include('theme::partials.statistics')
-                    @include('theme::partials.officials')
+                    @if(theme_config('village_officials') == '1')
+                        @include('theme::partials.officials')
+                    @endif
 
                 </div>
             </div>
@@ -50,7 +52,9 @@
     </div>
 
     @include('theme::partials.footer')
-    @include('theme::commons.ai_chat')
+    @if(theme_config('ai_assistant') == '1')
+        @include('theme::commons.ai_chat')
+    @endif
     @stack('scripts')
 
 
@@ -62,6 +66,9 @@
         lucide.createIcons()
     </script>
     @stack('scripts')
+
+    <!-- Theme Tracker -->
+    <script src="{{ theme_asset('js/theme_tracker.js') }}"></script>
 
 
 </body>

@@ -68,14 +68,99 @@
                     </nav>
                 </div>
 
-                {{-- RIGHT: Login Button --}}
-                <div class="p-0">
-                    <a href="#" class="inline-flex items-center px-6 py-2 text-sm font-semibold text-white
+                {{-- RIGHT: Login Button with Popup --}}
+                <div class="p-0" x-data="{ loginPopup: false }">
+                    <button @click="loginPopup = true" class="inline-flex items-center px-6 py-2 text-sm font-semibold text-white
                            bg-green-600 rounded-full shadow-md
                            hover:bg-green-700 hover:shadow-lg
                            transition">
                         Login
-                    </a>
+                    </button>
+
+                    <!-- Login Popup Modal -->
+                    <div x-show="loginPopup" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed inset-0 z-50 flex items-center justify-center p-4" @click.self="loginPopup = false"
+                        @keydown.escape.window="loginPopup = false" style="display: none;">
+
+                        <!-- Backdrop -->
+                        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+                        <!-- Modal Content -->
+                        <div class="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm transform"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                            @click.stop>
+
+                            <!-- Close Button -->
+                            <button @click="loginPopup = false"
+                                class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            <!-- Header -->
+                            <div class="text-center mb-6">
+                                <h3 class="text-lg font-bold text-gray-900">Pilih Halaman Login</h3>
+                                <p class="text-sm text-gray-500 mt-1">Silakan pilih tujuan login Anda</p>
+                            </div>
+
+                            <!-- Login Options -->
+                            <div class="space-y-3">
+                                <a href="/layanan-mandiri"
+                                    class="flex items-center gap-4 p-4 rounded-xl border-2 border-gray-200 hover:border-green-500 hover:bg-green-50 transition group">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center group-hover:bg-green-700 transition">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-gray-900 group-hover:text-green-700">Layanan
+                                            Mandiri</h4>
+                                        <p class="text-xs text-gray-500">Login untuk warga desa</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-400 group-hover:text-green-600" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+
+                                <a href="/siteman"
+                                    class="flex items-center gap-4 p-4 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition group">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center group-hover:bg-blue-700 transition">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-gray-900 group-hover:text-blue-700">Halaman Admin
+                                        </h4>
+                                        <p class="text-xs text-gray-500">Login untuk administrator</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

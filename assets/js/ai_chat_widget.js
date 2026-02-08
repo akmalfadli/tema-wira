@@ -81,6 +81,119 @@ class DesaAIAssistant {
     }
 }
 
+// ========================================
+// JDIH SEARCH INTEGRATION
+// ========================================
+
+/**
+ * Check if user message is a JDIH search query
+ */
+function isJdihSearchMode(message) {
+    const triggers = [
+        'cari peraturan', 'cari hukum', 'cari regulasi',
+        'perbup ', 'perda ', 'pergub ', 'permen ',
+        'uu ', 'undang-undang', 'peraturan daerah',
+        'peraturan bupati', 'peraturan gubernur',
+        'jdih', 'hukum daerah'
+    ];
+    const lowerMessage = message.toLowerCase();
+    return triggers.some(t => lowerMessage.includes(t));
+}
+
+/**
+ * Search JDIH API
+ */
+async function searchJdih(params) {
+    const queryParams = new URLSearchParams();
+    if (params.keywords) queryParams.append('keywords', params.keywords);
+    if (params.tentang) queryParams.append('tentang', params.tentang);
+    if (params.tahun) queryParams.append('tahun', params.tahun);
+    if (params.page) queryParams.append('page', params.page);
+
+    try {
+        const response = await fetch(`/api/jdih/search?${queryParams}`);
+        if (!response.ok) {
+            throw new Error('Gagal mengambil data JDIH');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('JDIH Search Error:', error);
+        throw error;
+    }
+}
+
+/**
+ * Extract search keywords from user message
+ */
+function extractJdihKeywords(message) {
+    // Remove common trigger words to get the actual search terms
+    const removeWords = [
+        'cari', 'carikan', 'tolong', 'bantu', 'peraturan', 'hukum', 'regulasi',
+        'tentang', 'mengenai', 'terkait', 'yang', 'ada', 'apa', 'saya', 'mau'
+    ];
+    let cleaned = message.toLowerCase();
+    removeWords.forEach(word => {
+        cleaned = cleaned.replace(new RegExp(`\\b${word}\\b`, 'gi'), '');
+    });
+    return cleaned.trim().replace(/\s+/g, ' ');
+}
+
+/**
+ * Render JDIH search results as HTML
+ */
+function renderJdihResults(data, meta) {
+    if (!data || data.length === 0) {
+        return `
+            <div class="text-center py-4">
+                <div class="text-4xl mb-2">📭</div>
+                <p class="text-gray-500">Tidak ditemukan peraturan yang sesuai.</p>
+                <p class="text-sm text-gray-400 mt-1">Coba gunakan kata kunci yang berbeda.</p>
+            </div>
+        `;
+    }
+
+    let html = `
+        <div class="jdih-results">
+            <div class="text-sm text-gray-500 mb-3">
+                📋 Ditemukan <strong>${meta?.total || data.length}</strong> peraturan
+            </div>
+    `;
+
+    data.forEach(item => {
+        html += `
+            <div class="jdih-card">
+                <div class="jdih-card-header">
+                    <span class="jdih-badge">${item.jenis || 'Peraturan'}</span>
+                    <span class="jdih-year">${item.tahun || '-'}</span>
+                </div>
+                <h4 class="jdih-title">${item.judul || 'Tanpa Judul'}</h4>
+                ${item.tentang ? `<p class="jdih-desc">${item.tentang}</p>` : ''}
+                <div class="jdih-meta">
+                    ${item.nomor ? `<span>No. ${item.nomor}</span>` : ''}
+                    ${item.status ? `<span class="jdih-status jdih-status-${item.status.toLowerCase().replace(/\s+/g, '-')}">${item.status}</span>` : ''}
+                </div>
+                ${item.download_url ? `
+                    <a href="${item.download_url}" target="_blank" rel="noopener noreferrer" class="jdih-download">
+                        📄 Download PDF
+                    </a>
+                ` : ''}
+            </div>
+        `;
+    });
+
+    // Pagination info
+    if (meta && meta.last_page > 1) {
+        html += `
+            <div class="jdih-pagination">
+                Halaman ${meta.current_page} dari ${meta.last_page}
+            </div>
+        `;
+    }
+
+    html += '</div>';
+    return html;
+}
+
 // Initialize Chat Widget
 document.addEventListener('DOMContentLoaded', function () {
     // Get configuration from global object
@@ -304,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
     chatForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         const message = chatInput.value.trim();
-        if (!message || !assistant) return;
+        if (!message) return;
 
         // Reset Input
         chatInput.value = '';
@@ -313,41 +426,67 @@ document.addEventListener('DOMContentLoaded', function () {
         // Add User Message
         addMessage('user', message);
 
-        // Add Placeholder for AI Response
-        const aiResponseContainer = addMessage('assistant', '<span class="animate-pulse">Sedang mengetik...</span>');
-        let currentResponse = '';
+        // Check if this is a JDIH search
+        if (isJdihSearchMode(message)) {
+            // JDIH Search Mode
+            const aiResponseContainer = addMessage('assistant', '<span class="animate-pulse">🔍 Mencari peraturan...</span>');
 
-        try {
-            sendBtn.disabled = true;
+            try {
+                sendBtn.disabled = true;
+                const keywords = extractJdihKeywords(message);
+                const results = await searchJdih({ keywords: keywords });
 
-            await assistant.sendMessage(
-                message,
-                (chunk) => {
-                    // On Chunk
-                    if (currentResponse === '') {
-                        aiResponseContainer.innerHTML = ''; // Clear "typing..."
-                        expandChat(); // Trigger fullscreen on first chunk
+                // Render results
+                aiResponseContainer.innerHTML = renderJdihResults(results.data, results.meta);
+                expandChat();
+                scrollToBottom();
+            } catch (error) {
+                console.error('JDIH Error:', error);
+                aiResponseContainer.innerHTML = `
+                    <div class="text-red-500">
+                        <p class="font-medium">⚠️ Gagal mencari peraturan</p>
+                        <p class="text-sm mt-1">${error.message || 'Terjadi kesalahan. Silakan coba lagi.'}</p>
+                    </div>
+                `;
+            } finally {
+                sendBtn.disabled = false;
+            }
+        } else if (assistant) {
+            // Normal AI Chat Mode
+            const aiResponseContainer = addMessage('assistant', '<span class="animate-pulse">Sedang mengetik...</span>');
+            let currentResponse = '';
+
+            try {
+                sendBtn.disabled = true;
+
+                await assistant.sendMessage(
+                    message,
+                    (chunk) => {
+                        // On Chunk
+                        if (currentResponse === '') {
+                            aiResponseContainer.innerHTML = ''; // Clear "typing..."
+                            expandChat(); // Trigger fullscreen on first chunk
+                        }
+                        currentResponse += chunk;
+                        aiResponseContainer.innerHTML = formatText(currentResponse);
+                        scrollToBottom();
+                    },
+                    (fullResponse) => {
+                        // On Complete
+                        sendBtn.disabled = false;
+                    },
+                    (error) => {
+                        // On Error
+                        console.error('Chat Error:', error);
+                        const errorMessage = error.message.replace(/^Error:\s*/, '') || 'Maaf, terjadi kesalahan saat menghubungi asisten. Silakan coba lagi.';
+                        aiResponseContainer.innerHTML = `<div class="text-red-500 font-medium">${formatText(errorMessage)}</div>`;
+                        sendBtn.disabled = false;
                     }
-                    currentResponse += chunk;
-                    aiResponseContainer.innerHTML = formatText(currentResponse);
-                    scrollToBottom();
-                },
-                (fullResponse) => {
-                    // On Complete
-                    sendBtn.disabled = false;
-                },
-                (error) => {
-                    // On Error
-                    console.error('Chat Error:', error);
-                    // Display error message from response.json which was thrown as Error
-                    const errorMessage = error.message.replace(/^Error:\s*/, '') || 'Maaf, terjadi kesalahan saat menghubungi asisten. Silakan coba lagi.';
-                    aiResponseContainer.innerHTML = `<div class="text-red-500 font-medium">${formatText(errorMessage)}</div>`;
-                    sendBtn.disabled = false;
-                }
-            );
-        } catch (err) {
-            console.error('Submission Error:', err);
-            sendBtn.disabled = false;
+                );
+            } catch (err) {
+                console.error('Submission Error:', err);
+                sendBtn.disabled = false;
+            }
         }
     });
 });

@@ -1,9 +1,10 @@
 <div class="w-full md:w-1/2">
     <h2 class="text-2xl font-bold mb-3">Lokasi Kami</h2>
     <p class="text-sm text-gray-700 mb-3">
-        {{ ucwords(setting('sebutan_kecamatan')) }} {{ $desa['nama_kecamatan'] }} {{ ucwords(setting('sebutan_kabupaten')) }} {{ $desa['nama_kabupaten'] }} Provinsi {{ $desa['nama_propinsi'] }}
+        {{ ucwords(setting('sebutan_kecamatan')) }} {{ $desa['nama_kecamatan'] }}
+        {{ ucwords(setting('sebutan_kabupaten')) }} {{ $desa['nama_kabupaten'] }} Provinsi {{ $desa['nama_propinsi'] }}
     </p>
-    
+
     <div class="relative w-full h-[250px] bg-gray-200 z-[9] rounded-lg overflow-hidden">
         <div id="map_canvas" class="w-full h-full"></div>
 
@@ -13,11 +14,13 @@
                     <i data-lucide="users" class="h-5 w-5 text-green-700"></i>
                 </div>
                 <div>
-                    <a href="https://www.openstreetmap.org/#map=15/{{ $data_config['lat'] }}/{{ $data_config['lng'] }}" target="_blank" class="text-xs font-bold">Kantor {{ ucwords(setting('sebutan_desa')) }} {{ $desa['nama_desa'] }}</a>
+                    <a href="https://www.openstreetmap.org/#map=15/{{ $data_config['lat'] }}/{{ $data_config['lng'] }}"
+                        target="_blank" class="text-xs font-bold">Kantor {{ ucwords(setting('sebutan_desa')) }}
+                        {{ $desa['nama_desa'] }}</a>
                     <p class="text-xs text-gray-500">{{ $desa['alamat_kantor'] }}</p>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 
@@ -30,7 +33,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
-        
+
         <!-- Modal Content -->
         <div class="p-2">
             <div class="text-center">
@@ -41,8 +44,9 @@
                 </div>
                 <div class="h-1 bg-green-500 mb-2"></div>
                 <div class="video-container">
-                    <video id="cctvVideo" controls muted playsinline class="w-full h-auto max-h-80 rounded-lg shadow-lg">
-                        <source src="https://cctv.perwirateknologi.com/hls/cam_f1779c12f54ea202/stream.m3u8" type="application/x-mpegURL">
+                    <video id="cctvVideo" controls muted playsinline
+                        class="w-full h-auto max-h-80 rounded-lg shadow-lg">
+                        <source src="{{ theme_config('url_cctv') }} type=" application/x-mpegURL">
                         Browser tidak mendukung video.
                     </video>
                     <p id="videoError" class="text-red-600 text-sm mt-2 hidden">Gagal memuat video CCTV</p>
@@ -73,7 +77,7 @@
         height: auto;
         max-height: 300px;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .video-popup strong {
@@ -86,12 +90,12 @@
     /* Custom popup styling */
     .leaflet-popup-content-wrapper {
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
     .leaflet-popup-tip {
         background: white;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     /* Custom Location Pin Marker Styles */
@@ -147,26 +151,40 @@
     }
 
     @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
             transform: translateY(0);
         }
+
         40% {
             transform: translateY(-8px);
         }
+
         60% {
             transform: translateY(-4px);
         }
     }
 
     @keyframes shadowPulse {
-        0%, 20%, 50%, 80%, 100% {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
             transform: translateX(-50%) scale(1);
             opacity: 0.2;
         }
+
         40% {
             transform: translateX(-50%) scale(0.8);
             opacity: 0.3;
         }
+
         60% {
             transform: translateX(-50%) scale(0.9);
             opacity: 0.25;
@@ -196,7 +214,7 @@
         var posisi = [{{ $data_config['lat'] }}, {{ $data_config['lng'] }}];
         var zoom = {{ $data_config['zoom'] ?: 10 }};
     @else
-        var posisi = [-7.3983118, 109.5432662]; // default center
+                var posisi = [-7.3983118, 109.5432662]; // default center
         var zoom = 15;
     @endif
 
@@ -250,18 +268,18 @@
     function openVideoModal() {
         modal.classList.remove('hidden');
         videoError.classList.add('hidden');
-        
+
         var videoUrl = '{{ theme_config('url_cctv') }}';
-        
+
         // Cek apakah browser support HLS.js
         if (Hls.isSupported()) {
             console.log('Using HLS.js');
-            
+
             // Destroy previous instance jika ada
             if (hlsInstance) {
                 hlsInstance.destroy();
             }
-            
+
             hlsInstance = new Hls({
                 enableWorker: true,
                 lowLatencyMode: true,
@@ -274,23 +292,23 @@
                 fragLoadingTimeOut: 20000,
                 fragLoadingMaxRetry: 3,
             });
-            
+
             hlsInstance.loadSource(videoUrl);
             hlsInstance.attachMedia(video);
-            
-            hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+
+            hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
                 console.log('Manifest parsed, playing video...');
-                video.play().catch(function(err) {
+                video.play().catch(function (err) {
                     console.log('Autoplay prevented:', err);
                 });
             });
-            
+
             // Handle errors
-            hlsInstance.on(Hls.Events.ERROR, function(event, data) {
+            hlsInstance.on(Hls.Events.ERROR, function (event, data) {
                 console.error('HLS Error:', data);
-                
+
                 if (data.fatal) {
-                    switch(data.type) {
+                    switch (data.type) {
                         case Hls.ErrorTypes.NETWORK_ERROR:
                             console.error('Network error - attempting recovery');
                             hlsInstance.startLoad();
@@ -313,13 +331,13 @@
         else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             console.log('Using native HLS (Safari)');
             video.src = videoUrl;
-            video.addEventListener('loadedmetadata', function() {
-                video.play().catch(function(err) {
+            video.addEventListener('loadedmetadata', function () {
+                video.play().catch(function (err) {
                     console.log('Autoplay prevented:', err);
                 });
             });
-            
-            video.addEventListener('error', function() {
+
+            video.addEventListener('error', function () {
                 console.error('Video error');
                 videoError.classList.remove('hidden');
             });
@@ -336,22 +354,22 @@
     function closeVideoModal() {
         video.pause();
         video.currentTime = 0;
-        
+
         // Destroy HLS instance
         if (hlsInstance) {
             hlsInstance.destroy();
             hlsInstance = null;
         }
-        
+
         // Reset video source
         video.src = '';
-        
+
         modal.classList.add('hidden');
     }
 
     // Jalankan hanya jika host == timbang-purbalingga.digidesa.id
     if (currentHost === 'timbang-purbalingga.digidesa.id') {
-        marker.on('click', function() {
+        marker.on('click', function () {
             openVideoModal();
         });
 
@@ -372,21 +390,21 @@
 
     // Event listeners untuk tutup modal
     closeBtn.addEventListener('click', closeVideoModal);
-    
-    modal.addEventListener('click', function(e) {
+
+    modal.addEventListener('click', function (e) {
         if (e.target === modal) {
             closeVideoModal();
         }
     });
-    
-    document.addEventListener('keydown', function(e) {
+
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
             closeVideoModal();
         }
     });
 
     // Cleanup saat page unload
-    window.addEventListener('beforeunload', function() {
+    window.addEventListener('beforeunload', function () {
         if (hlsInstance) {
             hlsInstance.destroy();
         }
