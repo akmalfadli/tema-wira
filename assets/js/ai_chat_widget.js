@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleJdihFiltersBtn = document.getElementById('toggle-jdih-filters');
     const jdihAdvancedFilters = document.getElementById('jdih-advanced-filters');
     const filterArrow = document.getElementById('filter-arrow');
+    const openJdihBtn = document.getElementById('open-jdih-btn');
 
     let assistant = null;
     let isChatOpen = false;
@@ -434,6 +435,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Exit JDIH mode button
     if (exitJdihModeBtn) {
         exitJdihModeBtn.addEventListener('click', exitJdihMode);
+    }
+
+    // Manual Open JDIH mode button (📚 book icon)
+    if (openJdihBtn) {
+        openJdihBtn.addEventListener('click', function () {
+            enterJdihMode('');
+        });
     }
 
     // Toggle advanced filters
