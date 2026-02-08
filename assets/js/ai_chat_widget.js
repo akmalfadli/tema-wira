@@ -371,20 +371,27 @@ document.addEventListener('DOMContentLoaded', function () {
      * Enter JDIH search mode
      */
     function enterJdihMode(initialKeywords = '') {
+        console.log('[JDIH] Entering JDIH mode with keywords:', initialKeywords);
         isJdihMode = true;
 
         // Show JDIH panel and results container
         if (jdihSearchPanel) {
             jdihSearchPanel.classList.remove('hidden');
             jdihSearchPanel.classList.add('flex');
+            console.log('[JDIH] Panel shown');
+        } else {
+            console.warn('[JDIH] Search panel element not found!');
         }
         if (jdihResultsContainer) {
             jdihResultsContainer.classList.remove('hidden');
         }
 
-        // Hide chat messages and input
+        // Hide chat messages and input form
         if (messagesContainer) {
             messagesContainer.classList.add('hidden');
+        }
+        if (chatForm) {
+            chatForm.parentElement.classList.add('hidden');
         }
 
         // Pre-fill keywords if provided
@@ -401,6 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
      * Exit JDIH search mode
      */
     function exitJdihMode() {
+        console.log('[JDIH] Exiting JDIH mode');
         isJdihMode = false;
 
         // Hide JDIH panel and results container
@@ -413,9 +421,12 @@ document.addEventListener('DOMContentLoaded', function () {
             jdihResultsContainer.innerHTML = '';
         }
 
-        // Show chat messages
+        // Show chat messages and input form
         if (messagesContainer) {
             messagesContainer.classList.remove('hidden');
+        }
+        if (chatForm) {
+            chatForm.parentElement.classList.remove('hidden');
         }
 
         // Clear JDIH form
@@ -430,6 +441,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filterArrow) {
             filterArrow.classList.remove('rotate-180');
         }
+
+        // Shrink chat back
+        shrinkChat();
     }
 
     // Exit JDIH mode button
@@ -439,9 +453,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Manual Open JDIH mode button (📚 book icon)
     if (openJdihBtn) {
-        openJdihBtn.addEventListener('click', function () {
+        console.log('[JDIH] Open button found, adding click listener');
+        openJdihBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('[JDIH] Book button clicked!');
             enterJdihMode('');
         });
+    } else {
+        console.warn('[JDIH] openJdihBtn not found!');
     }
 
     // Toggle advanced filters
