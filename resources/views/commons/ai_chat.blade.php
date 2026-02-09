@@ -1,5 +1,5 @@
-<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end mb-16 justify-end"
-    style="z-index: 9999; bottom: 24px; right: 24px;">
+<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end justify-end"
+    style="z-index: 9999; bottom: 65px; right: 24px;">
 
     <!-- Chat Window -->
     <div id="chat-window"
