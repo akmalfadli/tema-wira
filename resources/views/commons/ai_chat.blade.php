@@ -215,9 +215,6 @@
 <!-- AI Chat Configuration -->
 <script>
     window.DESA_AI_CONFIG = {
-        apiUrl: 'https://ai-assistant.digidesa.id',
-        apiKey: '1b7b39be-a750-48ad-9090-629b1c6fd6e9',
-        villageUrl: '{{ site_url("/") }}',
         iconUrl: '{{ theme_asset("icons/ai-icon.png") }}'
     };
 </script>
