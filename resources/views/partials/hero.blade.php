@@ -164,13 +164,13 @@
                 </div>
             </div>
 
-            {{-- Mobile Header (UNCHANGED) --}}
+            {{-- Mobile Header --}}
             <div class="lg:hidden fixed top-0 left-0 right-0 z-40">
                 <div class="bg-green-700 lg:bg-white shadow-md flex items-center justify-between px-4 py-2">
                     <div class="flex items-center gap-2">
                         <img src="{{ gambar_desa($desa['logo']) }}" class="h-10">
                         <div>
-                            <p class="text-white lg:text-blacktext-sm font-semibold">
+                            <p class="text-white lg:text-black text-sm font-semibold">
                                 {{ ucfirst(setting('sebutan_desa')) }}
                             </p>
                             <p class="text-white lg:text-black text-sm font-semibold -mt-1">
@@ -226,6 +226,18 @@
                     </p>
                     <p>Provinsi {{ ucwords($desa['nama_propinsi']) }}</p>
                 </div>
+
+                {{-- Clock for Mobile --}}
+                <div class="mt-4 bg-black/50 backdrop-blur-md rounded-lg p-3 inline-block mx-auto">
+                    <div class="text-center">
+                        <div id="digital-date-mobile" class="text-sm text-white font-medium mb-1">
+                            Loading...
+                        </div>
+                        <div id="working-hours-mobile" class="text-xs text-white">
+                            {{-- Working hours for current day will be inserted here by JavaScript --}}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {{-- Marquee --}}
@@ -249,13 +261,33 @@
         </div>
 
 
-        {{-- Torn Paper Image - Desktop (15% width) --}}
+        {{-- Torn Paper Image - Desktop --}}
         <div class="hidden mt-12 mb-12 lg:flex w-100px h-100px items-center justify-center">
+            {{-- Clock Overlay (outside torn-paper to avoid filter clipping) --}}
+            <div class="absolute flex items-center justify-center z-40">
+                <div class="bg-black/20 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
+                    <div class="text-center">
+                        <div id="digital-clock" class="text-lg font-mono font-bold text-white">
+                            00:00:00
+                        </div>
+                        <div id="digital-date" class="text-xs text-white">
+                            Loading...
+                        </div>
+                        <div id="working-hours" class="text-xs text-white mt-1">
+                            {{-- Working hours for current day will be inserted here by JavaScript --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Torn Paper Image --}}
             <div class="torn-paper-image w-full h-full">
                 <img src="{{ $bg_header }}" alt="Desa Image" class="w-full h-full object-cover">
+
+                {{-- Marquee on Desktop Image --}}
                 @if ($teks_berjalan)
                     <div
-                        class="absolute bottom-0 left-0 right-0 py-1 sm:py-1.5 bg-green-800 bg-opacity-20 text-white text-xs z-20">
+                        class="absolute mb-2 bottom-0 left-0 right-0 py-1 sm:py-1.5 bg-green-800 bg-opacity-20 text-white text-xs z-20">
                         <div class="marquee-container">
                             <marquee onmouseover="this.stop();" onmouseout="this.start();" class="block">
                                 @foreach ($teks_berjalan as $marquee)
@@ -263,8 +295,7 @@
                                         {{ $marquee['teks'] }}
                                         @if (trim($marquee['tautan']) && $marquee['judul_tautan'])
                                             <a href="{{ $marquee['tautan'] }}"
-                                                class="hover:text-link underline">{{ $marquee['judul_tautan'] }}</a>
-                                            </li>
+                                                class="hover:text-green-300 underline">{{ $marquee['judul_tautan'] }}</a>
                                         @endif
                                     </span>
                                 @endforeach
@@ -333,9 +364,101 @@
             z-index: 40 !important;
         }
     }
+
+    @media (max-width: 768px) {
+
+        #working-hours .bg-green-500,
+        #working-hours .bg-red-500,
+        #working-hours .bg-yellow-500,
+        #working-hours-mobile .bg-green-500,
+        #working-hours-mobile .bg-red-500,
+        #working-hours-mobile .bg-yellow-500 {
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+    }
 </style>
 
 <script>
+    // Working hours data from PHP
+    const workingHoursData = @json($jam_kerja ?? []);
+
+    function updateClock() {
+        const now = new Date();
+
+        // Format time (24-hour format)
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timeString = `${hours}:${minutes}:${seconds}`;
+
+        // Format date
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+        const dateString = now.toLocaleDateString('id-ID', options);
+
+        // Get current day name in Indonesian
+        const dayNames = {
+            'Sunday': 'Minggu',
+            'Monday': 'Senin',
+            'Tuesday': 'Selasa',
+            'Wednesday': 'Rabu',
+            'Thursday': 'Kamis',
+            'Friday': 'Jumat',
+            'Saturday': 'Sabtu'
+        };
+
+        const currentDay = now.toLocaleDateString('en-US', { weekday: 'long' });
+        const currentDayIndo = dayNames[currentDay];
+
+        // Find working hours for current day
+        let workingHoursHTML = '';
+
+        if (workingHoursData && workingHoursData.length > 0) {
+            const todaySchedule = workingHoursData.find(schedule =>
+                schedule.nama_hari.toLowerCase() === currentDayIndo.toLowerCase()
+            );
+
+            if (todaySchedule) {
+                if (todaySchedule.status) {
+                    const masuk = todaySchedule.jam_masuk.substring(0, 5);
+                    const keluar = todaySchedule.jam_keluar.substring(0, 5);
+                    const workingHoursText = `${masuk} - ${keluar}`;
+
+                    const current = `${hours}:${minutes}`;
+                    const isOpen = current >= masuk && current <= keluar;
+
+                    workingHoursHTML = isOpen
+                        ? `<span class="bg-green-500 text-white px-2 py-0.5 rounded text-xs">Buka</span> ${workingHoursText}`
+                        : `<span class="bg-yellow-500 text-white px-2 py-0.5 rounded text-xs">Tutup</span> ${workingHoursText}`;
+                } else {
+                    workingHoursHTML = '<span class="bg-red-500 text-white px-2 py-0.5 rounded text-xs">Libur</span>';
+                }
+            }
+        }
+
+        // Update elements
+        const clockElement = document.getElementById('digital-clock');
+        const dateElement = document.getElementById('digital-date');
+        const workingHoursElement = document.getElementById('working-hours');
+        const dateMobileElement = document.getElementById('digital-date-mobile');
+        const workingHoursMobileElement = document.getElementById('working-hours-mobile');
+
+        if (clockElement) clockElement.textContent = timeString;
+        if (dateElement) dateElement.textContent = dateString;
+        if (dateMobileElement) dateMobileElement.textContent = dateString;
+        if (workingHoursElement) workingHoursElement.innerHTML = workingHoursHTML;
+        if (workingHoursMobileElement) workingHoursMobileElement.innerHTML = workingHoursHTML;
+    }
+
+    // Initialize clock
+    updateClock();
+    setInterval(updateClock, 1000);
+
     document.addEventListener('DOMContentLoaded', function () {
         new Tornpaper({
             filterName: "filter_tornpaper",
