@@ -214,8 +214,8 @@
             {{-- Overlay Content --}}
             <div class="relative z-10 flex flex-col items-left justify-center h-full px-4 text-center">
 
-                <h1 class="text-2xl font-bold text-white">Website Resmi</h1>
-                <h2 class="text-2xl font-bold text-white">
+                <h1 class="text-2xl font-bold text-white mt-16">Website Resmi</h1>
+                <h2 class="text-xl font-bold text-white">
                     {{ ucfirst(setting('sebutan_desa')) }} {{ ucwords($desa['nama_desa']) }}
                 </h2>
 
@@ -228,7 +228,7 @@
                 </div>
 
                 {{-- Clock for Mobile --}}
-                <div class="mt-4 bg-black/50 backdrop-blur-md rounded-lg p-3 inline-block mx-auto">
+                <div class="mt-2 bg-black/30 backdrop-blur-md rounded-lg p-2 inline-block mx-auto">
                     <div class="text-center">
                         <div id="digital-date-mobile" class="text-sm text-white font-medium mb-1">
                             Loading...
@@ -262,10 +262,10 @@
 
 
         {{-- Torn Paper Image - Desktop --}}
-        <div class="hidden mt-12 mb-12 lg:flex w-100px h-100px items-center justify-center">
+        <div class="hidden mt-12 lg:flex w-100px h-100px items-center justify-center">
             {{-- Clock Overlay (outside torn-paper to avoid filter clipping) --}}
             <div class="absolute flex items-center justify-center z-40">
-                <div class="bg-black/20 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
+                <div class="bg-black/10 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
                     <div class="text-center">
                         <div id="digital-clock" class="text-lg font-mono font-bold text-white">
                             00:00:00
