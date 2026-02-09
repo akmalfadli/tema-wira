@@ -163,7 +163,7 @@
                     </svg>
                 </button>
             </form>
-            <div class="text-center mt-8">
+            <div class="text-center mb-8 mt-2">
                 <a href="https://opendesa.id/tema-pro-opensid/" target="_blank"
                     class="text-[10px] text-green-400">Didukung oleh Tema Perwira</a>
             </div>
