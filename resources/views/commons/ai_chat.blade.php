@@ -210,9 +210,6 @@
 <!-- Load AI Chat CSS -->
 <link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">
 
-<!-- Load Marked.js for Markdown rendering -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <!-- AI Chat Configuration -->
 <script>
     window.DESA_AI_CONFIG = {

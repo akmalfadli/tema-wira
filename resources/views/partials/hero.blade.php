@@ -255,7 +255,7 @@
                 <img src="{{ $bg_header }}" alt="Desa Image" class="w-full h-full object-cover">
                 @if ($teks_berjalan)
                     <div
-                        class="absolute mb-2 bottom-0 left-0 right-0 py-1 sm:py-1.5 bg-green-600 bg-opacity-15 text-white text-xs z-20">
+                        class="absolute bottom-0 left-0 right-0 py-1 sm:py-1.5 bg-green-800 bg-opacity-20 text-white text-xs z-20">
                         <div class="marquee-container">
                             <marquee onmouseover="this.stop();" onmouseout="this.start();" class="block">
                                 @foreach ($teks_berjalan as $marquee)

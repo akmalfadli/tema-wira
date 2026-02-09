@@ -653,7 +653,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         // On Chunk
                         if (currentResponse === '') {
                             aiResponseContainer.innerHTML = ''; // Clear "typing..."
-                            expandChat(); // Trigger fullscreen on first chunk
+                            // Only expand on mobile for better reading
+                            if (window.innerWidth < 768) {
+                                expandChat();
+                            }
                         }
                         currentResponse += chunk;
                         aiResponseContainer.innerHTML = formatText(currentResponse);
