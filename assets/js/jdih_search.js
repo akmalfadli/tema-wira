@@ -28,6 +28,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Handle exit JDIH mode - restore chat
+    const exitJdihBtn = document.getElementById('exit-jdih-mode');
+    if (exitJdihBtn) {
+        exitJdihBtn.addEventListener('click', () => {
+            // Hide JDIH panel and results
+            if (jdihSearchPanel) jdihSearchPanel.classList.add('hidden');
+            if (jdihResultsContainer) jdihResultsContainer.classList.add('hidden');
+
+            // Show chat messages
+            if (chatMessages) chatMessages.classList.remove('hidden');
+
+            // Clear the results
+            if (jdihResultsContainer) jdihResultsContainer.innerHTML = '';
+
+            // Reset the form
+            if (jdihSearchForm) jdihSearchForm.reset();
+        });
+    }
+
     // Handle JDIH search form submission
     jdihSearchForm.addEventListener('submit', async function (e) {
         e.preventDefault(); // Prevent default form submission
