@@ -1,5 +1,5 @@
 {{-- resources/views/partials/footer.blade.php --}}
-<div class="container">
+<div class="container mt-16">
     @includeWhen($transparansi, 'theme::partials.apbdesa', $transparansi)
 </div>
 @include('theme::commons.back_to_top')
