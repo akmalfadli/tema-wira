@@ -162,7 +162,7 @@
             </form>
             <div class="text-center mt-2">
                 <a href="https://opendesa.id/tema-pro-opensid/" target="_blank"
-                    class="text-[10px] text-gray-400">Didukung oleh Tema Perwira</a>
+                    class="text-[10px] text-green-400">Didukung oleh Tema Perwira</a>
             </div>
         </div>
     </div>
@@ -218,6 +218,3 @@
         iconUrl: '{{ theme_asset("icons/ai-icon.png") }}'
     };
 </script>
-
-<!-- Load AI Chat Widget JS -->
-<script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
