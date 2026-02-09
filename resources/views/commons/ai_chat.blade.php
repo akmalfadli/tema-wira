@@ -219,6 +219,8 @@
 <!-- Load AI Chat Scripts in correct order -->
 <script src="{{ theme_asset('js/ai_chat.js') }}"></script>
 <script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
+<!-- Load JDIH Search Handler -->
+<script src="{{ theme_asset('js/jdih_search.js') }}"></script>
 <!-- AI Chat Configuration -->
 <script>
     window.DESA_AI_CONFIG = {

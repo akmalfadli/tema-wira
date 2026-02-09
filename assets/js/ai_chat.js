@@ -1,1 +1,150 @@
-function _0x4077() { const _0xfadc0b = ['3401484aiSBtV', 'assistant', '/api/cache', 'read', 'villageUrl', 'data:', 'wwsqQ', '11789344AHjXub', 'ynfBJ', 'cached', '99fpNUnv', 'stant\x20erro', 'clearHisto', 'apiKey', 'decode', 'DjBaH', 'apiUrl', 'mPCvT', 'XBaVf', 'Request\x20fa', 'slice', '/api/chat', '509770qSKnTt', 'parse\x20SSE\x20', 'ceEma', 'POST', 'body', 'getReader', 'onHistory', 'KGXPQ', 'KLaaS', 'etSfO', 'applicatio', '42TZjoGS', 'undefined', 'eSync', 'json', '4755090KSXJCT', 'exports', 'stringify', 'koSLX', 'content', 'zuvgF', 'error', 'response', 'done', 'DesaAIAssi', 'ZjPXI', 'split', 'parse', 'length', '3277900QsNJOg', 'IQJRb', 'sendMessag', 'DELETE', 'Failed\x20to\x20', 'n/json', 'nEGWc', 'iled', 'hKWFq', 'ZktpH', 'UZCVb', '1389964WJHCfr', 'clearCache', '5Yrltza', 'startsWith', 'ArGtZ', 'data:\x20', 'warn', '1574951otKZKD', 'bfxsP', 'user', 'uTDfV', 'conversati', 'Fyxud', 'push']; _0x4077 = function () { return _0xfadc0b; }; return _0x4077(); } const _0x128711 = _0x35d9; (function (_0x19ea5e, _0x416cfb) { const _0x3795e9 = _0x35d9, _0x4c7cff = _0x19ea5e(); while (!![]) { try { const _0x11433d = parseInt(_0x3795e9(0x1fb)) / (0x1482 + -0x60 * -0x4f + -0x3221) + -parseInt(_0x3795e9(0x209)) / (0x97 * 0x16 + -0x5 * 0x779 + 0x4e1 * 0x5) + parseInt(_0x3795e9(0x1e2)) / (0x1663 + 0x1fef + -0x364f) + parseInt(_0x3795e9(0x1f0)) / (0x1 * 0x1e77 + -0x1a14 + -0x45f) * (-parseInt(_0x3795e9(0x1fd)) / (-0x3a7 + 0xb1 * 0x1f + -0x11c3)) + parseInt(_0x3795e9(0x1de)) / (-0x1ed * -0x1 + -0x1 * 0x1b72 + 0x1 * 0x198b) * (-parseInt(_0x3795e9(0x202)) / (0x1424 + 0x1f53 + -0x3370)) + parseInt(_0x3795e9(0x210)) / (-0xc00 + 0x1d1 * -0x2 + 0xfaa) + parseInt(_0x3795e9(0x1c7)) / (-0x211 + -0x630 + -0x425 * -0x2) * (parseInt(_0x3795e9(0x1d3)) / (-0x25 * 0x26 + -0xb13 + 0x27 * 0x6d)); if (_0x11433d === _0x416cfb) break; else _0x4c7cff['push'](_0x4c7cff['shift']()); } catch (_0x3f95f3) { _0x4c7cff['push'](_0x4c7cff['shift']()); } } }(_0x4077, 0x3 * 0x8ce2b + -0x793 * -0x2f9 + 0x85a9 * -0x43)); function _0x35d9(_0x5a3a6c, _0x593013) { _0x5a3a6c = _0x5a3a6c - (0x2 * -0xf02 + -0x2220 + 0x465 * 0xf); const _0x1ba878 = _0x4077(); let _0x1c081d = _0x1ba878[_0x5a3a6c]; return _0x1c081d; } class DesaAIAssistant { constructor(_0x5d8c12) { const _0x56efbd = _0x35d9; this[_0x56efbd(0x1cd)] = _0x5d8c12[_0x56efbd(0x1cd)] || '', this[_0x56efbd(0x1ca)] = '', this[_0x56efbd(0x20d)] = _0x5d8c12[_0x56efbd(0x20d)] || '', this[_0x56efbd(0x206) + _0x56efbd(0x1d9)] = []; } async[_0x128711(0x1f2) + 'e'](_0x28881b, _0x2a24d1, _0x14ccda = null, _0x43de6d = null) { const _0x4c1314 = _0x128711, _0x1800b5 = { 'etSfO': function (_0x54e73a, _0x4db927, _0x32848f) { return _0x54e73a(_0x4db927, _0x32848f); }, 'UZCVb': _0x4c1314(0x1d6), 'ZjPXI': _0x4c1314(0x1dd) + _0x4c1314(0x1f5), 'wwsqQ': _0x4c1314(0x1d0) + _0x4c1314(0x1f7), 'mPCvT': _0x4c1314(0x200), 'koSLX': function (_0x286954, _0x1b1a59) { return _0x286954(_0x1b1a59); }, 'hKWFq': _0x4c1314(0x204), 'ynfBJ': _0x4c1314(0x20a), 'ceEma': function (_0xa580f6, _0x5067f7) { return _0xa580f6 > _0x5067f7; }, 'KGXPQ': _0x4c1314(0x1f4) + _0x4c1314(0x1d4) + _0x4c1314(0x20e), 'DjBaH': _0x4c1314(0x1eb) + _0x4c1314(0x1c8) + 'r:', 'Fyxud': function (_0x2c3ed4, _0x5d2ab4) { return _0x2c3ed4(_0x5d2ab4); } }; try { const _0x2f20d3 = await _0x1800b5[_0x4c1314(0x1dc)](fetch, this[_0x4c1314(0x1cd)] + _0x4c1314(0x1d2), { 'method': _0x1800b5[_0x4c1314(0x1fa)], 'headers': { 'Content-Type': _0x1800b5[_0x4c1314(0x1ec)], 'X-API-Key': this[_0x4c1314(0x1ca)] }, 'body': JSON[_0x4c1314(0x1e4)]({ 'village_url': this[_0x4c1314(0x20d)], 'message': _0x28881b, 'conversation_history': this[_0x4c1314(0x206) + _0x4c1314(0x1d9)], 'stream': !![] }) }); if (!_0x2f20d3['ok']) { const _0x59c99d = await _0x2f20d3[_0x4c1314(0x1e1)](); throw new Error(_0x59c99d[_0x4c1314(0x1e8)] || _0x1800b5[_0x4c1314(0x20f)]); } const _0x17eef0 = _0x2f20d3[_0x4c1314(0x1d7)][_0x4c1314(0x1d8)](), _0x4b6e39 = new TextDecoder(); let _0xd4c595 = ''; while (!![]) { const { done: _0x1d5773, value: _0x675e90 } = await _0x17eef0[_0x4c1314(0x20c)](); if (_0x1d5773) break; const _0x21141a = _0x4b6e39[_0x4c1314(0x1cb)](_0x675e90), _0x44ee42 = _0x21141a[_0x4c1314(0x1ed)]('\x0a'); for (const _0x470a6c of _0x44ee42) { if (_0x470a6c[_0x4c1314(0x1fe)](_0x1800b5[_0x4c1314(0x1ce)])) try { const _0x24f263 = JSON[_0x4c1314(0x1ee)](_0x470a6c[_0x4c1314(0x1d1)](-0x1acb * 0x1 + 0x19 * 0x67 + -0x16 * -0xc3)); if (_0x24f263[_0x4c1314(0x1e6)]) { _0xd4c595 += _0x24f263[_0x4c1314(0x1e6)]; if (_0x2a24d1) _0x1800b5[_0x4c1314(0x1e5)](_0x2a24d1, _0x24f263[_0x4c1314(0x1e6)]); } if (_0x24f263[_0x4c1314(0x1ea)]) { this[_0x4c1314(0x206) + _0x4c1314(0x1d9)][_0x4c1314(0x208)]({ 'role': _0x1800b5[_0x4c1314(0x1f8)], 'content': _0x28881b }, { 'role': _0x1800b5[_0x4c1314(0x211)], 'content': _0xd4c595 }); _0x1800b5[_0x4c1314(0x1d5)](this[_0x4c1314(0x206) + _0x4c1314(0x1d9)][_0x4c1314(0x1ef)], -0xe64 + 0x273 + -0x11 * -0xb5) && (this[_0x4c1314(0x206) + _0x4c1314(0x1d9)] = this[_0x4c1314(0x206) + _0x4c1314(0x1d9)][_0x4c1314(0x1d1)](-(0xc23 + 0x2 * -0x591 + -0xed))); if (_0x14ccda) _0x1800b5[_0x4c1314(0x1dc)](_0x14ccda, _0xd4c595, _0x24f263[_0x4c1314(0x212)]); } } catch (_0x3f1b49) { console[_0x4c1314(0x201)](_0x1800b5[_0x4c1314(0x1da)], _0x3f1b49); } } } } catch (_0x32c2ce) { console[_0x4c1314(0x1e8)](_0x1800b5[_0x4c1314(0x1cc)], _0x32c2ce); if (_0x43de6d) _0x1800b5[_0x4c1314(0x207)](_0x43de6d, _0x32c2ce); } } async[_0x128711(0x1f2) + _0x128711(0x1e0)](_0x177f6e) { const _0x291b31 = _0x128711, _0x3dd246 = { 'ZktpH': function (_0x13b353, _0x349123, _0x97eec0) { return _0x13b353(_0x349123, _0x97eec0); }, 'IQJRb': _0x291b31(0x1d6), 'uTDfV': _0x291b31(0x1dd) + _0x291b31(0x1f5), 'nEGWc': _0x291b31(0x1d0) + _0x291b31(0x1f7), 'XBaVf': _0x291b31(0x204), 'bfxsP': _0x291b31(0x20a) }, _0x16034a = await _0x3dd246[_0x291b31(0x1f9)](fetch, this[_0x291b31(0x1cd)] + _0x291b31(0x1d2), { 'method': _0x3dd246[_0x291b31(0x1f1)], 'headers': { 'Content-Type': _0x3dd246[_0x291b31(0x205)], 'X-API-Key': this[_0x291b31(0x1ca)] }, 'body': JSON[_0x291b31(0x1e4)]({ 'village_url': this[_0x291b31(0x20d)], 'message': _0x177f6e, 'conversation_history': this[_0x291b31(0x206) + _0x291b31(0x1d9)], 'stream': ![] }) }); if (!_0x16034a['ok']) { const _0x440f2b = await _0x16034a[_0x291b31(0x1e1)](); throw new Error(_0x440f2b[_0x291b31(0x1e8)] || _0x3dd246[_0x291b31(0x1f6)]); } const _0x511ee5 = await _0x16034a[_0x291b31(0x1e1)](); return this[_0x291b31(0x206) + _0x291b31(0x1d9)][_0x291b31(0x208)]({ 'role': _0x3dd246[_0x291b31(0x1cf)], 'content': _0x177f6e }, { 'role': _0x3dd246[_0x291b31(0x203)], 'content': _0x511ee5[_0x291b31(0x1e9)] }), _0x511ee5; } [_0x128711(0x1c9) + 'ry']() { const _0x40543b = _0x128711; this[_0x40543b(0x206) + _0x40543b(0x1d9)] = []; } async[_0x128711(0x1fc)]() { const _0x3e7f34 = _0x128711, _0x50b4a4 = { 'ArGtZ': function (_0xf83cce, _0x54117e, _0x4b9dd4) { return _0xf83cce(_0x54117e, _0x4b9dd4); }, 'KLaaS': function (_0x26bac5, _0x282b04) { return _0x26bac5(_0x282b04); }, 'zuvgF': _0x3e7f34(0x1f3) }, _0x56fc95 = await _0x50b4a4[_0x3e7f34(0x1ff)](fetch, this[_0x3e7f34(0x1cd)] + (_0x3e7f34(0x20b) + '/') + _0x50b4a4[_0x3e7f34(0x1db)](encodeURIComponent, this[_0x3e7f34(0x20d)]), { 'method': _0x50b4a4[_0x3e7f34(0x1e7)], 'headers': { 'X-API-Key': this[_0x3e7f34(0x1ca)] } }); return _0x56fc95[_0x3e7f34(0x1e1)](); } } typeof module !== _0x128711(0x1df) && module[_0x128711(0x1e3)] && (module[_0x128711(0x1e3)] = DesaAIAssistant);
+
+class DesaAIAssistant {
+    constructor(options) {
+        this.apiUrl = options.apiUrl || '';
+        this.apiKey = '';
+        this.villageUrl = options.villageUrl || '';
+        this.conversationHistory = [];
+    }
+
+    /**
+     * Send a message to the AI assistant
+     * @param {string} message - The user's message
+     * @param {function} onChunk - Callback for each response chunk
+     * @param {function} onComplete - Callback when response is complete
+     * @param {function} onError - Callback for errors
+     */
+    async sendMessage(message, onChunk, onComplete = null, onError = null) {
+        try {
+            const response = await fetch(`${this.apiUrl}/api/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': this.apiKey
+                },
+                body: JSON.stringify({
+                    village_url: this.villageUrl,
+                    message: message,
+                    conversation_history: this.conversationHistory,
+                    stream: true
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Request failed');
+            }
+
+            // Handle SSE stream
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let fullResponse = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.slice(6));
+
+                            if (data.content) {
+                                fullResponse += data.content;
+                                if (onChunk) onChunk(data.content);
+                            }
+
+                            if (data.done) {
+                                // Add to conversation history
+                                this.conversationHistory.push(
+                                    { role: 'user', content: message },
+                                    { role: 'assistant', content: fullResponse }
+                                );
+
+                                // Keep history limited
+                                if (this.conversationHistory.length > 20) {
+                                    this.conversationHistory = this.conversationHistory.slice(-20);
+                                }
+
+                                if (onComplete) onComplete(fullResponse, data.cached);
+                            }
+                        } catch (e) {
+                            console.warn('Failed to parse SSE data:', e);
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('DesaAIAssistant error:', error);
+            if (onError) onError(error);
+        }
+    }
+
+    /**
+     * Send a message and get a non-streaming response
+     * @param {string} message - The user's message
+     * @returns {Promise<object>} - The response object
+     */
+    async sendMessageSync(message) {
+        const response = await fetch(`${this.apiUrl}/api/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': this.apiKey
+            },
+            body: JSON.stringify({
+                village_url: this.villageUrl,
+                message: message,
+                conversation_history: this.conversationHistory,
+                stream: false
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Request failed');
+        }
+
+        const data = await response.json();
+
+        // Add to conversation history
+        this.conversationHistory.push(
+            { role: 'user', content: message },
+            { role: 'assistant', content: data.response }
+        );
+
+        return data;
+    }
+
+    /**
+     * Clear the conversation history
+     */
+    clearHistory() {
+        this.conversationHistory = [];
+    }
+
+    /**
+     * Clear the server-side cache for this village
+     */
+    async clearCache() {
+        const response = await fetch(
+            `${this.apiUrl}/api/cache/${encodeURIComponent(this.villageUrl)}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'X-API-Key': this.apiKey
+                }
+            }
+        );
+
+        return response.json();
+    }
+}
+
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = DesaAIAssistant;
+}
