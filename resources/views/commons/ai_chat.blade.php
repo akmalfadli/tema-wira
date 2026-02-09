@@ -205,7 +205,8 @@
         class="group mb-4 p-3 rounded-full transition-all duration-300 pointer-events-auto flex items-center justify-center gap-2 relative overflow-hidden animate-pulse-green">
         <span
             class="absolute hover:scale-105 inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-        <img src="{{ theme_asset('icons/ai-icon.png') }}" class="w-10 h-10 relative z-10 object-cover rounded-full">
+        <img src="{{ theme_asset('icons/ai-icon.png') }}"
+            class="w-10 h-10 relative z-10 object-cover rounded-full animate-tilt">
         <span
             class="font-semibold text-sm pr-1 relative z-10 hidden group-hover:block transition-all duration-300">Chat</span>
     </button>
@@ -226,4 +227,50 @@
     window.DESA_AI_CONFIG = {
         iconUrl: '{{ theme_asset("icons/ai-icon.png") }}'
     };
+
+    // AI Icon Animation Controller - Random spin then tilt
+    (function () {
+        document.addEventListener('DOMContentLoaded', function () {
+            const icon = document.querySelector('#toggle-chat img');
+            if (!icon) return;
+
+            let spinCount = 0;
+            let targetSpins = getRandomInt(2, 7);
+
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function doSpin() {
+                icon.classList.remove('animate-tilt-left', 'animate-tilt-right');
+                icon.classList.add('animate-spin-y');
+                spinCount++;
+            }
+
+            function doTilt() {
+                icon.classList.remove('animate-spin-y');
+                const direction = Math.random() > 0.5 ? 'animate-tilt-left' : 'animate-tilt-right';
+                icon.classList.add(direction);
+            }
+
+            function animate() {
+                if (spinCount < targetSpins) {
+                    doSpin();
+                    setTimeout(animate, 1500); // Wait for spin to complete
+                } else {
+                    doTilt();
+                    // Reset after tilt and start new cycle
+                    setTimeout(function () {
+                        icon.classList.remove('animate-tilt-left', 'animate-tilt-right', 'animate-spin-y');
+                        spinCount = 0;
+                        targetSpins = getRandomInt(2, 7);
+                        setTimeout(animate, 1000); // Pause before next cycle
+                    }, 500);
+                }
+            }
+
+            // Start animation after a short delay
+            setTimeout(animate, 1000);
+        });
+    })();
 </script>

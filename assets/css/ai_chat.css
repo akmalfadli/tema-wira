@@ -22,6 +22,58 @@
     animation: pulse-green 2s ease-in-out infinite;
 }
 
+/* Spin Animation for AI Icon (Y-axis) */
+@keyframes spin-y {
+    0% {
+        transform: perspective(200px) rotateY(0deg);
+    }
+
+    100% {
+        transform: perspective(200px) rotateY(360deg);
+    }
+}
+
+/* Tilt Animation for AI Icon */
+@keyframes tilt-left {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-20deg);
+    }
+}
+
+@keyframes tilt-right {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(20deg);
+    }
+}
+
+.animate-spin-y {
+    animation: spin-y 1.5s ease-in-out;
+}
+
+.animate-tilt-left {
+    animation: tilt-left 0.4s ease-in-out;
+}
+
+.animate-tilt-right {
+    animation: tilt-right 0.4s ease-in-out;
+}
+
+.animate-tilt {
+    /* Fallback - controlled by JS */
+}
+
 /* Markdown Styling for Chat Messages */
 #chat-messages .prose-sm ul {
     list-style-type: disc;
