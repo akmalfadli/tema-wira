@@ -18,7 +18,7 @@
                 </div>
             </div>
             <button id="close-chat"
-                class="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors">
+                class="text-white hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

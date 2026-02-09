@@ -101,23 +101,51 @@ function isJdihSearchMode(message) {
 }
 
 /**
- * Search JDIH API
+ * Search JDIH API (via ai-assistant.digidesa.id)
  */
 async function searchJdih(params) {
+    const JDIH_API_URL = 'https://ai-assistant.digidesa.id/api/jdih/search';
+
     const queryParams = new URLSearchParams();
     if (params.keywords) queryParams.append('keywords', params.keywords);
     if (params.tentang) queryParams.append('tentang', params.tentang);
+    if (params.nomor) queryParams.append('nomor', params.nomor);
     if (params.tahun) queryParams.append('tahun', params.tahun);
+    if (params.jenis) queryParams.append('jenis', params.jenis);
     if (params.page) queryParams.append('page', params.page);
+    queryParams.append('per_page', '10');
 
     try {
-        const response = await fetch(`/api/jdih/search?${queryParams}`);
+        console.log('[JDIH] Searching with params:', Object.fromEntries(queryParams));
+
+        const response = await fetch(`${JDIH_API_URL}?${queryParams}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+
         if (!response.ok) {
-            throw new Error('Gagal mengambil data JDIH');
+            const errorData = await response.json().catch(() => ({}));
+            console.error('[JDIH] API Error:', response.status, errorData);
+            throw new Error(errorData.message || `Gagal mengambil data (${response.status})`);
         }
-        return await response.json();
+
+        const result = await response.json();
+        console.log('[JDIH] Search results:', result);
+
+        // Return normalized response
+        return {
+            data: result.data || [],
+            meta: result.meta || {
+                total: 0,
+                current_page: 1,
+                last_page: 1,
+                per_page: 10
+            }
+        };
     } catch (error) {
-        console.error('JDIH Search Error:', error);
+        console.error('[JDIH] Search Error:', error);
         throw error;
     }
 }
@@ -400,8 +428,10 @@ document.addEventListener('DOMContentLoaded', function () {
             keywordsInput.value = initialKeywords;
         }
 
-        // Expand chat for better view
-        expandChat();
+        // Only expand chat on mobile for better view
+        if (window.innerWidth < 768) {
+            expandChat();
+        }
     }
 
     /**
