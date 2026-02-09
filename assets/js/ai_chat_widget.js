@@ -338,9 +338,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Expand Chat to Fullscreen
     function expandChat() {
         // Remove sizing/positioning classes
-        chatWindow.classList.remove('w-[90vw]', 'sm:w-[380px]', 'h-[500px]', 'max-h-[80vh]', 'mb-4', 'rounded-2xl');
+        chatWindow.classList.remove('w-[90vw]', 'sm:w-[380px]', 'mb-4', 'rounded-2xl');
         // Add fullscreen classes
         chatWindow.classList.add('fixed', 'inset-0', 'z-[9999]', 'w-full', 'h-full', 'max-h-none', 'rounded-none', 'mb-0');
+        // Override inline height
+        chatWindow.style.height = '100%';
 
         // Override inline styles for fullscreen
         widget.style.bottom = '0';
@@ -357,8 +359,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Shrink Chat to Default
     function shrinkChat() {
         // Revert classes
-        chatWindow.classList.add('w-[90vw]', 'sm:w-[380px]', 'h-[500px]', 'max-h-[80vh]', 'mb-4', 'rounded-2xl');
+        chatWindow.classList.add('w-[90vw]', 'sm:w-[380px]', 'mb-4', 'rounded-2xl');
         chatWindow.classList.remove('fixed', 'inset-0', 'z-[9999]', 'w-full', 'h-full', 'max-h-none', 'rounded-none', 'mb-0');
+        // Restore original height
+        chatWindow.style.height = 'min(75vh, calc(100vh - 120px))';
 
         // Revert inline styles
         widget.style.left = '';

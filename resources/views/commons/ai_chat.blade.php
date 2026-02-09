@@ -1,8 +1,10 @@
-<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end" style="z-index: 9999; bottom: 24px; right: 24px;">
+<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end justify-end"
+    style="z-index: 9999; bottom: 24px; right: 24px;">
 
     <!-- Chat Window -->
     <div id="chat-window"
-        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] h-[500px] max-h-[80vh] mb-4 flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden">
+        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] mb-4 flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden"
+        style="height: min(80vh, calc(100vh - 120px));">
 
         <!-- Header -->
         <div class="bg-green-700 p-4 flex justify-between items-center shrink-0">
@@ -112,12 +114,12 @@
         </div>
 
         {{-- JDIH Results Container (replaces messages in JDIH mode) --}}
-        <div id="jdih-results-container" class="hidden flex-1 overflow-y-auto p-4 bg-gray-50">
+        <div id="jdih-results-container" class="hidden flex-1 overflow-y-auto p-4 bg-gray-50 min-h-0">
             {{-- Results will be injected here --}}
         </div>
 
         <!-- Messages Area -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth">
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth min-h-0">
             <!-- Welcome Message -->
             <div class="flex gap-2">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-green-200 overflow-hidden"
