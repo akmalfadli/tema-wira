@@ -2,9 +2,9 @@
     {
         "judul": "Url CCTV Online",
         "key": "url_cctv",
-        "value": "https://cctv.perwirateknologi.com",
+        "value": "https://cctvpenyedialayanan.com/hls/casdgfdsfdfgsfgsdfa202/stream.m3u8",
         "type": "input-text",
-        "keterangan": "",
+        "keterangan": "Masukan url streaming cctv online",
         "options": null,
         "readonly": false,
         "link": true,
@@ -16,6 +16,36 @@
         "value": "1",
         "type": "select",
         "keterangan": "Tampilkan widget Ai Asistant di beranda",
+        "options": {
+            "1": "Ya",
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": false
+    },
+    {
+        "judul": "Gaya Klasik",
+        "key": "hero_klasik",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Header Klasik di beranda",
+        "options": {
+            "1": "Ya",
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": true
+    },
+    {
+        "judul": "Jam Kerja",
+        "key": "jam_kerja",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Jam Kerja di beranda",
         "options": {
             "1": "Ya",
             "0": "Tidak"
@@ -86,8 +116,9 @@
         "key": "village_officials",
         "value": "0",
         "type": "select",
-        "keterangan": "Tampilkan Pemerintah dan Aparatur Desa di beranda, [disable] beli Tema Preium untuk mengaktifkan",
+        "keterangan": "Tampilkan Pemerintah dan Aparatur Desa di beranda",
         "options": {
+            "1": "Ya",
             "0": "Tidak"
         },
         "attributes": {

@@ -30,7 +30,11 @@
     <div class="max-w-6xl mx-auto mb-2">
         @include('theme::commons.loading_screen')
         {{-- @include('theme::partials.header') --}}
-        @include('theme::partials.hero')
+        @if(theme_config('hero_klasik') == '1')
+            @include('theme::partials.hero_klasik')
+        @else
+            @include('theme::partials.hero')
+        @endif
 
         @yield('layout')
         @if (request()->path() === '/' || request()->path() === '')

@@ -228,16 +228,18 @@
                 </div>
 
                 {{-- Clock for Mobile --}}
-                <div class="mt-2 bg-black/30 backdrop-blur-md rounded-lg p-2 inline-block mx-auto">
-                    <div class="text-center">
-                        <div id="digital-date-mobile" class="text-sm text-white font-medium mb-1">
-                            Loading...
-                        </div>
-                        <div id="working-hours-mobile" class="text-xs text-white">
-                            {{-- Working hours for current day will be inserted here by JavaScript --}}
+                @if(theme_config('jam_kerja') == '1')
+                    <div class="mt-2 bg-black/30 backdrop-blur-md rounded-lg p-2 inline-block mx-auto">
+                        <div class="text-center">
+                            <div id="digital-date-mobile" class="text-sm text-white font-medium mb-1">
+                                Loading...
+                            </div>
+                            <div id="working-hours-mobile" class="text-xs text-white">
+                                {{-- Working hours for current day will be inserted here by JavaScript --}}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
 
             {{-- Marquee --}}
@@ -264,22 +266,23 @@
         {{-- Torn Paper Image - Desktop --}}
         <div class="hidden mt-12 lg:flex w-100px h-100px items-center justify-center">
             {{-- Clock Overlay (outside torn-paper to avoid filter clipping) --}}
-            <div class="absolute flex items-center justify-center z-40">
-                <div class="bg-black/10 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
-                    <div class="text-center">
-                        <div id="digital-clock" class="text-lg font-mono font-bold text-white">
-                            00:00:00
-                        </div>
-                        <div id="digital-date" class="text-xs text-white">
-                            Loading...
-                        </div>
-                        <div id="working-hours" class="text-xs text-white mt-1">
-                            {{-- Working hours for current day will be inserted here by JavaScript --}}
+            @if(theme_config('jam_kerja') == '1')
+                <div class="absolute flex items-center justify-center z-40">
+                    <div class="bg-black/10 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
+                        <div class="text-center">
+                            <div id="digital-clock" class="text-lg font-mono font-bold text-white">
+                                00:00:00
+                            </div>
+                            <div id="digital-date" class="text-xs text-white">
+                                Loading...
+                            </div>
+                            <div id="working-hours" class="text-xs text-white mt-1">
+                                {{-- Working hours for current day will be inserted here by JavaScript --}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            @endif
             {{-- Torn Paper Image --}}
             <div class="torn-paper-image w-full h-full">
                 <img src="{{ $bg_header }}" alt="Desa Image" class="w-full h-full object-cover">
