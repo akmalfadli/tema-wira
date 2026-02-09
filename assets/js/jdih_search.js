@@ -14,6 +14,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!jdihSearchForm) return;
 
+    // Make chat fullscreen on mobile
+    function makeFullscreenOnMobile() {
+        // Only apply on mobile devices (screen width < 640px)
+        if (window.innerWidth >= 640) return;
+
+        const chatWindow = document.getElementById('chat-window');
+        if (!chatWindow) return;
+
+        // Move to body to ensure true fullscreen (not relative to parent)
+        document.body.appendChild(chatWindow);
+
+        // Apply fullscreen styles directly
+        chatWindow.style.position = 'fixed';
+        chatWindow.style.top = '0';
+        chatWindow.style.left = '0';
+        chatWindow.style.width = '100vw';
+        chatWindow.style.height = '100vh';
+        chatWindow.style.zIndex = '999999'; // Extremely high z-index
+        chatWindow.style.margin = '0';
+        chatWindow.style.borderRadius = '0';
+        chatWindow.style.maxWidth = '100%';
+    }
+
+    // Exit fullscreen on mobile
+    function exitFullscreenOnMobile() {
+        const chatWindow = document.getElementById('chat-window');
+        const widgetContainer = document.getElementById('desa-ai-chat-widget');
+
+        if (!chatWindow || !widgetContainer) return;
+
+        // Move back to widget container
+        widgetContainer.insertBefore(chatWindow, widgetContainer.firstChild);
+
+        // Reset styles
+        chatWindow.style.position = '';
+        chatWindow.style.top = '';
+        chatWindow.style.left = '';
+        chatWindow.style.width = '';
+        chatWindow.style.zIndex = '';
+        chatWindow.style.margin = '';
+        chatWindow.style.borderRadius = '';
+        chatWindow.style.maxWidth = '';
+
+        // Restore original dimensions
+        chatWindow.style.height = 'min(80vh, calc(100vh - 120px))';
+    }
+
     // Toggle advanced filters
     if (toggleFiltersBtn && advancedFilters && filterArrow) {
         toggleFiltersBtn.addEventListener('click', () => {
@@ -32,6 +79,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const exitJdihBtn = document.getElementById('exit-jdih-mode');
     if (exitJdihBtn) {
         exitJdihBtn.addEventListener('click', () => {
+            // Exit fullscreen on mobile
+            exitFullscreenOnMobile();
+
             // Hide JDIH panel and results
             if (jdihSearchPanel) jdihSearchPanel.classList.add('hidden');
             if (jdihResultsContainer) jdihResultsContainer.classList.add('hidden');
@@ -89,6 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
             displayResults(data);
+            // Make fullscreen on mobile when results arrive
+            makeFullscreenOnMobile();
         } catch (error) {
             console.error('JDIH Search Error:', error);
             showError(error.message);

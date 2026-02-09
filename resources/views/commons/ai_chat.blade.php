@@ -1,9 +1,9 @@
-<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end justify-end"
+<div id="desa-ai-chat-widget" class="fixed flex flex-col items-end mb-16 justify-end"
     style="z-index: 9999; bottom: 24px; right: 24px;">
 
     <!-- Chat Window -->
     <div id="chat-window"
-        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] mb-4 flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden"
+        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden"
         style="height: min(80vh, calc(100vh - 120px));">
 
         <!-- Header -->
