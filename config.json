@@ -26,18 +26,73 @@
         "readonly": false
     },
     {
-        "judul": "Pemerintah dan Aparatur Desa",
-        "key": "village_officials",
-        "value": "1",
+        "judul": "Visi Misi Desa",
+        "key": "vision_mission",
+        "value": "0",
         "type": "select",
-        "keterangan": "Tampilkan Pemerintah dan Aparatur Desa di beranda",
+        "keterangan": "Tampilkan Visi Misi Desa di beranda, [disable] beli Tema Preium untuk mengaktifkan",
         "options": {
-            "1": "Ya",
             "0": "Tidak"
         },
         "attributes": {
             "class": "select2"
         },
-        "readonly": false
+        "readonly": true
+    },
+    {
+        "judul": "Arah Pengembangan Desa",
+        "key": "development",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Arah Pengembangan Desa di beranda, [disable] beli Tema Preium untuk mengaktifkan",
+        "options": {
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": true
+    },
+    {
+        "judul": "Sejarah Desa",
+        "key": "history",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Sejarah Desa di beranda, [disable] beli Tema Preium untuk mengaktifkan",
+        "options": {
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": true
+    },
+    {
+        "judul": "Lokasi Kantor",
+        "key": "office_location",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Lokasi Kantor di beranda, [disable] beli Tema Preium untuk mengaktifkan",
+        "options": {
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": true
+    },
+    {
+        "judul": "Pemerintah dan Aparatur Desa",
+        "key": "village_officials",
+        "value": "0",
+        "type": "select",
+        "keterangan": "Tampilkan Pemerintah dan Aparatur Desa di beranda, [disable] beli Tema Preium untuk mengaktifkan",
+        "options": {
+            "0": "Tidak"
+        },
+        "attributes": {
+            "class": "select2"
+        },
+        "readonly": true
     }
 ]
