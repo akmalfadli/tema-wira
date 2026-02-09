@@ -3,7 +3,7 @@
 
     <!-- Chat Window -->
     <div id="chat-window"
-        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden"
+        class="bg-white rounded-2xl shadow-2xl w-[90vw] sm:w-[380px] flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto hidden border border-gray-200 overflow-hidden mb-8"
         style="height: min(80vh, calc(100vh - 120px));">
 
         <!-- Header -->
