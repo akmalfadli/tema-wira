@@ -2,7 +2,6 @@
 <div class="container mt-16">
     @includeWhen($transparansi, 'theme::partials.apbdesa', $transparansi)
 </div>
-@include('theme::commons.back_to_top')
 <!-- Bottom Navigation for Mobile (Fixed at bottom) -->
 <nav class="mobile-nav fixed bottom-0 left-0 right-0 p-3 z-50 block md:hidden">
     <div class="bg-green-700 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)]">

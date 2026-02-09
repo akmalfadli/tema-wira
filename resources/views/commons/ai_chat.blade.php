@@ -16,7 +16,10 @@
                     <h3 class="font-bold text-white text-base">AI Asisten {{ ucfirst(setting('sebutan_desa')) }}
                         {{ ucwords($desa['nama_desa']) }}
                     </h3>
-                    <p class="text-white text-xs">Online • Siap membantu</p>
+                    <div class="flex text-white items-center gap-2 mt-0.5">
+                        <div id="status-dot" class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                        <span id="status-text" class="text-white text-xs">Memeriksa koneksi...</span>
+                    </div>
                 </div>
             </div>
             <button id="close-chat"
@@ -179,7 +182,7 @@
                 </svg>
             </div>
             <div>
-                <p class="font-bold text-gray-900">Halo! Saya Ai Asisten {{ ucfirst(setting('sebutan_desa')) }}
+                <p class="font-bold text-gray-900">Halo saya AI Asisten {{ ucfirst(setting('sebutan_desa')) }}
                     {{ ucwords($desa['nama_desa']) }}
                 </p>
                 <p class="text-xs text-gray-600 mt-1">Kamu bisa tanya apa saja disini.</p>
@@ -211,7 +214,9 @@
 
 <!-- Load AI Chat CSS -->
 <link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">
-
+<!-- Load AI Chat Scripts in correct order -->
+<script src="{{ theme_asset('js/ai_chat.js') }}"></script>
+<script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
 <!-- AI Chat Configuration -->
 <script>
     window.DESA_AI_CONFIG = {

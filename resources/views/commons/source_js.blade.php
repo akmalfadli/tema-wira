@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/gh/happy358/TornPaper@v0.0.3/tornpaper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
+
     <!-- Load Marked.js for Markdown rendering -->
 @endif
 @include('core::admin.layouts.components.token')
