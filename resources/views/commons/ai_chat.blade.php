@@ -214,6 +214,8 @@
 
 <!-- Load AI Chat CSS -->
 <link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">
+<!-- Load Marked.js for Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
 <!-- Load AI Chat Scripts in correct order -->
 <script src="{{ theme_asset('js/ai_chat.js') }}"></script>
 <script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
