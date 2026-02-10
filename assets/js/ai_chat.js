@@ -5,6 +5,19 @@ class DesaAIAssistant {
         this.apiKey = '';
         this.villageUrl = options.villageUrl || '';
         this.conversationHistory = [];
+        this.abortController = null;
+        this.isStreaming = false;
+    }
+
+    /**
+     * Abort the current streaming response
+     */
+    abort() {
+        if (this.abortController) {
+            this.abortController.abort();
+            this.abortController = null;
+        }
+        this.isStreaming = false;
     }
 
     /**
@@ -15,6 +28,12 @@ class DesaAIAssistant {
      * @param {function} onError - Callback for errors
      */
     async sendMessage(message, onChunk, onComplete = null, onError = null) {
+        // Abort any existing stream
+        this.abort();
+
+        this.abortController = new AbortController();
+        this.isStreaming = true;
+
         try {
             const response = await fetch(`${this.apiUrl}/api/chat`, {
                 method: 'POST',
@@ -27,7 +46,8 @@ class DesaAIAssistant {
                     message: message,
                     conversation_history: this.conversationHistory,
                     stream: true
-                })
+                }),
+                signal: this.abortController.signal
             });
 
             if (!response.ok) {
@@ -78,8 +98,16 @@ class DesaAIAssistant {
                 }
             }
         } catch (error) {
+            if (error.name === 'AbortError') {
+                // Stream was intentionally aborted - not an error
+                console.log('Stream aborted by user');
+                return;
+            }
             console.error('DesaAIAssistant error:', error);
             if (onError) onError(error);
+        } finally {
+            this.isStreaming = false;
+            this.abortController = null;
         }
     }
 

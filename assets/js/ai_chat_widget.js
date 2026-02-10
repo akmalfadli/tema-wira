@@ -351,6 +351,59 @@
             if (loading) loading.remove();
         }
 
+        // DOM Elements for send/stop toggle
+        const sendIcon = document.getElementById('send-icon');
+        const stopIcon = document.getElementById('stop-icon');
+        let isCurrentlyStreaming = false;
+
+        // Toggle button to Stop mode
+        function showStopButton() {
+            if (sendIcon) sendIcon.classList.add('hidden');
+            if (stopIcon) stopIcon.classList.remove('hidden');
+            sendBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+            sendBtn.classList.add('bg-red-500', 'hover:bg-red-600');
+            sendBtn.disabled = false;
+            sendBtn.type = 'button';
+            isCurrentlyStreaming = true;
+        }
+
+        // Toggle button back to Send mode
+        function showSendButton() {
+            if (sendIcon) sendIcon.classList.remove('hidden');
+            if (stopIcon) stopIcon.classList.add('hidden');
+            sendBtn.classList.remove('bg-red-500', 'hover:bg-red-600');
+            sendBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            sendBtn.type = 'submit';
+            isCurrentlyStreaming = false;
+        }
+
+        // Restore UI after streaming ends
+        function restoreAfterStreaming() {
+            showSendButton();
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            chatInput.focus();
+        }
+
+        // Handle stop button click
+        sendBtn.addEventListener('click', function (e) {
+            if (isCurrentlyStreaming) {
+                e.preventDefault();
+                e.stopPropagation();
+                aiAssistant.abort();
+
+                // Complete any streaming message
+                const streamingMsg = messagesContainer.querySelector('[data-streaming]');
+                if (streamingMsg) {
+                    const content = streamingMsg.querySelector('.markdown-content');
+                    if (content) completeStreaming(content);
+                }
+
+                removeLoading();
+                restoreAfterStreaming();
+            }
+        });
+
         // Handle form submit
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -363,7 +416,7 @@
             chatInput.value = '';
             chatInput.style.height = 'auto';
 
-            // Disable input
+            // Disable input and show loading
             chatInput.disabled = true;
             sendBtn.disabled = true;
 
@@ -384,6 +437,8 @@
                             streamingElement = contentContainer;
                             // Make fullscreen on mobile when first chunk arrives
                             makeFullscreenOnMobile();
+                            // Switch to stop button
+                            showStopButton();
                         }
                         streamingText += chunk;
                         updateStreamingMessage(streamingElement, streamingText);
@@ -395,17 +450,13 @@
                         }
                         // Update status to online on successful response
                         updateStatus('online');
-                        chatInput.disabled = false;
-                        sendBtn.disabled = false;
-                        chatInput.focus();
+                        restoreAfterStreaming();
                     },
                     // onError
                     (errorInfo) => {
                         removeLoading();
                         showErrorMessage(errorInfo);
-                        chatInput.disabled = false;
-                        sendBtn.disabled = false;
-                        chatInput.focus();
+                        restoreAfterStreaming();
                     }
                 );
             } catch (error) {
@@ -415,8 +466,7 @@
                     message: error.message,
                     type: 'unknown'
                 });
-                chatInput.disabled = false;
-                sendBtn.disabled = false;
+                restoreAfterStreaming();
             }
         });
 
