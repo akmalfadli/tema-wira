@@ -267,3 +267,9 @@
     border-top: 1px solid #e5e7eb;
     margin-top: 8px;
 }
+
+@media (min-width: 1024px) {
+    #desa-ai-chat-widget {
+        right: 135px !important;
+    }
+}

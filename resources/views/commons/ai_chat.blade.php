@@ -1,5 +1,6 @@
 <div id="desa-ai-chat-widget" class="fixed flex flex-col items-end justify-end"
-    style="z-index: 9999; bottom: 65px; right: 24px;">
+    style="z-index:9999; bottom:65px; right:24px;">
+
 
     <!-- Chat Window -->
     <div id="chat-window"

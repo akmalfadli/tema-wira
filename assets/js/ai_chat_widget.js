@@ -547,15 +547,6 @@
                 setTimeout(() => {
                     tooltip.classList.remove('opacity-0', 'translate-y-4');
                 }, 500);
-
-                // Auto-hide after 10 seconds
-                setTimeout(() => {
-                    tooltip.classList.add('opacity-0', 'translate-y-4');
-                    setTimeout(() => {
-                        tooltip.classList.add('hidden');
-                        localStorage.setItem('ai-tooltip-dismissed', 'true');
-                    }, 300);
-                }, 10000);
             }
         }, 2000);
 
