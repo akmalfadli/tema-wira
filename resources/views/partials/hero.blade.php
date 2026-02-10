@@ -14,7 +14,7 @@
                 <div class="flex items-center">
 
                     {{-- Logo --}}
-                    <div class="flex items-center pr-8">
+                    <div class="flex items-center pr-4">
                         <a href="{{ ci_route() }}" class="block">
                             <img src="{{ gambar_desa($desa['logo']) }}"
                                 alt="Logo {{ ucfirst(setting('sebutan_desa')) . ' ' . ucwords($desa['nama_desa']) }}"
@@ -38,7 +38,7 @@
                                     @php $has_dropdown = count($menu['childrens'] ?? []) > 0; @endphp
                                     <li class="relative" @if($has_dropdown) x-data="{dropdown:false}" @endif>
                                         <a href="{{ $has_dropdown ? '#!' : $menu['link_url'] }}"
-                                            class="px-3 py-2 font-medium hover:text-green-600 transition" @if($has_dropdown)
+                                            class="px-2 py-2 font-medium hover:text-green-600 transition" @if($has_dropdown)
                                                 @mouseover="dropdown=true" @mouseleave="dropdown=false"
                                             @click.prevent="dropdown=!dropdown" @endif>
                                             {{ $menu['nama'] }}
