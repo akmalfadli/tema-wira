@@ -306,6 +306,9 @@
             const newCursor = document.createElement('span');
             newCursor.className = 'inline-block w-1 h-4 bg-gray-400 ml-1 animate-pulse';
             element.appendChild(newCursor);
+
+            // Auto-scroll to bottom while streaming
+            scrollToBottom();
         }
 
         // Complete streaming
