@@ -15,6 +15,14 @@
 <meta name='designer' content='Akmal Fadli' />
 <meta name='theme:designer' content='Akmal Fadli' />
 <meta name='theme:version' content='{{ $themeVersion }}' />
+@php
+    $aiToken = theme_config('ai_assistant_key')
+@endphp
+
+@if($aiToken !== '')
+    <meta name="ai-verification" content="{{ $aiToken }}">
+@endif
+
 <meta name="theme-color" content="#efefef">
 <meta name='keywords'
     content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}" />

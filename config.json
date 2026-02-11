@@ -11,6 +11,16 @@
         "group": "Pembangunan"
     },
     {
+        "judul": "Aktivasi AI Assistant",
+        "key": "ai_assistant_key",
+        "value": "1",
+        "type": "input-text",
+        "keterangan": "Masukan product key untuk klaim domain AI Assistant pada dashboard aiuntukdesa.digidesa.id",
+        "readonly": false,
+        "link": true,
+        "group": "Pembangunan"
+    },
+    {
         "judul": "Widget Ai Asistant",
         "key": "ai_assistant",
         "value": "1",
