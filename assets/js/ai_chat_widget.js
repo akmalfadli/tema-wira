@@ -17,6 +17,16 @@
             villageUrl: window.location.origin
         });
 
+        // Restore chat history
+        if (aiAssistant.conversationHistory.length > 0) {
+            aiAssistant.conversationHistory.forEach(msg => {
+                const isUser = msg.role === 'user';
+                addMessage(msg.content, isUser, false);
+            });
+            // Scroll to bottom after restoration
+            setTimeout(scrollToBottom, 100);
+        }
+
         // DOM Elements
         const toggleBtn = document.getElementById('toggle-chat');
         const chatWindow = document.getElementById('chat-window');
@@ -546,6 +556,32 @@
                 chatWindow.classList.add('hidden');
             }, 300);
         });
+
+        // Clear history button
+        const clearBtn = document.getElementById('clear-chat-btn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (confirm('Apakah Anda yakin ingin menghapus semua riwayat percakapan?')) {
+                    aiAssistant.clearHistory();
+
+                    messagesContainer.innerHTML = '';
+
+                    const welcomeHtml = `
+            <div class="flex gap-2">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-green-200 overflow-hidden"
+                    style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex-shrink: 0;">
+                    <img src="${window.DESA_AI_CONFIG?.iconUrl || '/assets/ai-icon.png'}" class="w-full h-full shadow-sm object-cover"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 max-w-[85%]">
+                    <p class="text-sm text-gray-700">Riwayat percakapan telah dihapus. Ada yang bisa saya bantu?</p>
+                </div>
+            </div>`;
+
+                    messagesContainer.innerHTML = welcomeHtml;
+                }
+            });
+        }
 
         // JDIH Button - Toggle JDIH search panel
         const jdihBtn = document.getElementById('open-jdih-btn');

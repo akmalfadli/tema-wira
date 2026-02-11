@@ -4,9 +4,32 @@ class DesaAIAssistant {
         this.apiUrl = options.apiUrl || '';
         this.apiKey = '';
         this.villageUrl = options.villageUrl || '';
-        this.conversationHistory = [];
+        this.storageKey = 'desa_ai_history_' + btoa(this.villageUrl).replace(/[^a-zA-Z0-9]/g, '');
+        this.conversationHistory = this.loadHistory();
         this.abortController = null;
         this.isStreaming = false;
+    }
+
+    loadHistory() {
+        try {
+            const stored = sessionStorage.getItem(this.storageKey);
+            return stored ? JSON.parse(stored) : [];
+        } catch (e) {
+            console.warn('Failed to load chat history:', e);
+            return [];
+        }
+    }
+
+    saveHistory() {
+        try {
+            // Prune if too long before saving
+            if (this.conversationHistory.length > 20) {
+                this.conversationHistory = this.conversationHistory.slice(-20);
+            }
+            sessionStorage.setItem(this.storageKey, JSON.stringify(this.conversationHistory));
+        } catch (e) {
+            console.warn('Failed to save chat history:', e);
+        }
     }
 
     /**
@@ -89,6 +112,8 @@ class DesaAIAssistant {
                                     this.conversationHistory = this.conversationHistory.slice(-20);
                                 }
 
+                                this.saveHistory();
+
                                 if (onComplete) onComplete(fullResponse, data.cached, data.suggestions);
                             }
                         } catch (e) {
@@ -143,6 +168,7 @@ class DesaAIAssistant {
             { role: 'user', content: message },
             { role: 'assistant', content: data.response }
         );
+        this.saveHistory();
 
         return data;
     }
@@ -152,6 +178,11 @@ class DesaAIAssistant {
      */
     clearHistory() {
         this.conversationHistory = [];
+        try {
+            sessionStorage.removeItem(this.storageKey);
+        } catch (e) {
+            console.warn('Failed to clear chat history:', e);
+        }
     }
 
     /**
