@@ -17,8 +17,7 @@
 <meta name='theme:version' content='{{ $themeVersion }}' />
 <meta name="theme-color" content="#efefef">
 <meta name='keywords'
-    content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}"
-/>
+    content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}" />
 <meta property="og:site_name" content="{{ $nama_desa }}" />
 <meta property="og:type" content="article" />
 <link rel="canonical" href="{{ site_url() }}" />
@@ -26,7 +25,6 @@
 <meta name="subject" content="Situs Web Desa">
 <meta name="copyright" content="{{ $nama_desa }}">
 <meta name="language" content="Indonesia">
-<meta name="revised" content="Sunday, July 18th, 2010, 5:15 pm" />
 <meta name="Classification" content="Government">
 <meta name="url" content="{{ site_url() }}">
 <meta name="identifier-URL" content="{{ site_url() }}">
@@ -46,28 +44,31 @@
     <meta name='description' content="{{ str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)) }}" />
     <meta property="og:title" content="{{ $single_artikel['judul'] }}" />
     <meta itemprop="name" content="{{ $single_artikel['judul'] }}" />
-    <meta itemprop='description' content="{{ str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)) }}" />
+    <meta itemprop='description'
+        content="{{ str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)) }}" />
     @if (trim($single_artikel['gambar']) != '')
         <meta property="og:image" content="{{ base_url(LOKASI_FOTO_ARTIKEL . 'sedang_' . $single_artikel['gambar']) }}" />
         <meta itemprop="image" content="{{ base_url(LOKASI_FOTO_ARTIKEL . 'sedang_' . $single_artikel['gambar']) }}" />
     @endif
-    <meta property='og:description' content="{{ str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)) }}" />
+    <meta property='og:description'
+        content="{{ str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)) }}" />
 @else
     <title>{{ $desa_title }}</title>
     <meta name='description'
-        content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}"
-    />
+        content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}" />
     <meta itemprop="name" content="{{ $desa_title }}" />
     <meta property="og:title" content="{{ $desa_title }}" />
     <meta property='og:description'
-        content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}"
-    />
+        content="{{ $desa_title }} @if (!strpos($desa_title, $nama_desa)) {{ $nama_desa }} @endif {{ ucfirst(setting('sebutan_kecamatan')) }} {{ ucwords($desa['nama_kecamatan']) }}, {{ ucfirst(setting('sebutan_kabupaten')) }} {{ ucwords($desa['nama_kabupaten']) }}, Provinsi  {{ ucwords($desa['nama_propinsi']) }}" />
 @endif
 <meta property='og:url' content="{{ current_url() }}" />
 <link rel="shortcut icon" href="{{ favico_desa() }}" />
-<noscript>You must have JavaScript enabled in order to use this theme. Please enable JavaScript and then reload this page in order to continue.</noscript>
+<noscript>You must have JavaScript enabled in order to use this theme. Please enable JavaScript and then reload this
+    page in order to continue.</noscript>
 @if (cek_koneksi_internet())
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endif
 <script>
     var BASE_URL = '{{ base_url() }}';

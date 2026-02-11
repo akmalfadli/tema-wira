@@ -322,6 +322,29 @@
             }
         }
 
+        // Render suggestion chips
+        function renderSuggestions(suggestions) {
+            if (!suggestions || !suggestions.length) return;
+
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'flex gap-2 overflow-x-auto pb-2 px-1 mb-2 no-scrollbar';
+
+            suggestions.forEach(text => {
+                const btn = document.createElement('button');
+                btn.className = 'flex-shrink-0 bg-gray-50 hover:bg-white text-gray-600 text-xs px-3 py-1.5 rounded-full border border-gray-200 transition-colors shadow-sm';
+                btn.textContent = text;
+                btn.onclick = () => {
+                    chatInput.value = text;
+                    chatInput.style.height = 'auto';
+                    chatForm.dispatchEvent(new Event('submit'));
+                };
+                suggestionsDiv.appendChild(btn);
+            });
+
+            messagesContainer.appendChild(suggestionsDiv);
+            scrollToBottom();
+        }
+
         // Scroll to bottom
         function scrollToBottom() {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -447,10 +470,16 @@
                         updateStreamingMessage(streamingElement, streamingText);
                     },
                     // onComplete
-                    (fullResponse, cached) => {
+                    (fullResponse, cached, suggestions) => {
                         if (streamingElement) {
                             completeStreaming(streamingElement);
                         }
+
+                        // Render suggestions if available
+                        if (suggestions && Array.isArray(suggestions) && suggestions.length > 0) {
+                            renderSuggestions(suggestions);
+                        }
+
                         // Update status to online on successful response
                         updateStatus('online');
                         restoreAfterStreaming();
@@ -576,6 +605,15 @@
         }
         .animate-fade-in {
             animation: fade-in 0.3s ease-out;
+        }
+
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         
         /* Markdown Content Styling */

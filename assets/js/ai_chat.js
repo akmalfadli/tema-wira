@@ -89,7 +89,7 @@ class DesaAIAssistant {
                                     this.conversationHistory = this.conversationHistory.slice(-20);
                                 }
 
-                                if (onComplete) onComplete(fullResponse, data.cached);
+                                if (onComplete) onComplete(fullResponse, data.cached, data.suggestions);
                             }
                         } catch (e) {
                             console.warn('Failed to parse SSE data:', e);
