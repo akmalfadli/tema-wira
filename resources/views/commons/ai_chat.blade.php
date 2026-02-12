@@ -226,8 +226,15 @@
     </button>
 </div>
 
+<!-- Load Marked.js for Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- AI Chat Configuration -->
+<script src="{{ theme_asset('js/ai_chat.js') }}"></script>
+<script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
+<!-- Load JDIH Search Handler -->
+<script src="{{ theme_asset('js/jdih_search.js') }}"></script>
+
 <script>
     window.DESA_AI_CONFIG = {
         iconUrl: '{{ theme_asset("icons/ai-icon.png") }}'
