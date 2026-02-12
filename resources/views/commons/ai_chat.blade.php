@@ -25,7 +25,7 @@
             </div>
             <div class="flex items-center gap-1">
                 <button id="clear-chat-btn" title="Hapus Riwayat Chat"
-                    class="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors">
+                    class="text-gray-200 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -227,15 +227,6 @@
 </div>
 
 
-<!-- Load AI Chat CSS -->
-<link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">
-<!-- Load Marked.js for Markdown rendering -->
-<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
-<!-- Load AI Chat Scripts in correct order -->
-<script src="{{ theme_asset('js/ai_chat.js') }}"></script>
-<script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
-<!-- Load JDIH Search Handler -->
-<script src="{{ theme_asset('js/jdih_search.js') }}"></script>
 <!-- AI Chat Configuration -->
 <script>
     window.DESA_AI_CONFIG = {

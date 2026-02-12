@@ -17,16 +17,6 @@
             villageUrl: window.location.origin
         });
 
-        // Restore chat history
-        if (aiAssistant.conversationHistory.length > 0) {
-            aiAssistant.conversationHistory.forEach(msg => {
-                const isUser = msg.role === 'user';
-                addMessage(msg.content, isUser, false);
-            });
-            // Scroll to bottom after restoration
-            setTimeout(scrollToBottom, 100);
-        }
-
         // DOM Elements
         const toggleBtn = document.getElementById('toggle-chat');
         const chatWindow = document.getElementById('chat-window');
@@ -38,9 +28,19 @@
         const tooltip = document.getElementById('ai-chat-tooltip');
 
         // Check if required elements exist
-        if (!toggleBtn || !chatWindow || !chatForm) {
+        if (!toggleBtn || !chatWindow || !chatForm || !messagesContainer) {
             console.warn('AI Chat Widget: Required DOM elements not found');
             return;
+        }
+
+        // Restore chat history
+        if (aiAssistant.conversationHistory.length > 0) {
+            aiAssistant.conversationHistory.forEach(msg => {
+                const isUser = msg.role === 'user';
+                addMessage(msg.content, isUser, false);
+            });
+            // Scroll to bottom after restoration
+            setTimeout(scrollToBottom, 100);
         }
 
         // Server status
@@ -446,6 +446,31 @@
 
             const message = chatInput.value.trim();
             if (!message) return;
+
+            // Intercept "cari peraturan" command
+            if (message.toLowerCase().startsWith('cari peraturan')) {
+                const keywords = message.slice('cari peraturan'.length).trim();
+
+                // Switch to JDIH mode
+                const jdihPanel = document.getElementById('jdih-search-panel');
+                if (jdihPanel && jdihPanel.classList.contains('hidden')) {
+                    jdihPanel.classList.remove('hidden');
+                    jdihPanel.classList.add('flex');
+                }
+
+                // Fill and trigger JDIH search
+                const jdihKeywordsInput = document.getElementById('jdih-keywords');
+                const jdihSearchForm = document.getElementById('jdih-search-form');
+
+                if (jdihKeywordsInput && jdihSearchForm) {
+                    jdihKeywordsInput.value = keywords;
+                    jdihSearchForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+                }
+
+                chatInput.value = '';
+                chatInput.style.height = 'auto';
+                return;
+            }
 
             // Add user message
             addMessage(message, true);

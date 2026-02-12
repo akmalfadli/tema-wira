@@ -14,6 +14,12 @@
 
 
     <!-- Load Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- AI Chat Scripts -->
+    <script src="{{ theme_asset('js/ai_chat.js') }}"></script>
+    <script src="{{ theme_asset('js/ai_chat_widget.js') }}"></script>
+    <!-- Load JDIH Search Handler -->
+    <script src="{{ theme_asset('js/jdih_search.js') }}"></script>
 @endif
 @include('core::admin.layouts.components.token')
 <script src="{{ asset('js/peta.js') }}"></script>
