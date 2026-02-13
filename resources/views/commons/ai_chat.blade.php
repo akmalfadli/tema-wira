@@ -156,7 +156,7 @@
         <div class="p-3 bg-white border-t border-gray-100 shrink-0">
             <form id="chat-form" class="relative flex items-end gap-2">
                 <textarea id="chat-input" rows="1" placeholder="Ketik pertanyaan Anda..."
-                    class="w-full py-2.5 pl-4 pr-10 bg-gray-50 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 text-sm resize-none max-h-24 scrollbar-hide text-gray-700"
+                    class="w-full py-2.5 pl-4 pr-4 bg-gray-50 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 text-sm resize-none max-h-24 scrollbar-hide text-gray-700"
                     required></textarea>
                 {{-- JDIH Search Button --}}
                 <button type="button" id="open-jdih-btn" title="Cari Peraturan JDIH"
