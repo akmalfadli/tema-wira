@@ -15,7 +15,7 @@
         "key": "ai_assistant_key",
         "value": "",
         "type": "input-text",
-        "keterangan": "Masukan product key untuk klaim domain AI Assistant pada dashboard aiuntukdesa.digidesa.id",
+        "keterangan": "Masukan product key untuk klaim domain AI Assistant pada dashboard aiuntukdesa.id",
         "readonly": false,
         "link": true,
         "group": "Pembangunan"
