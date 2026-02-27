@@ -6,8 +6,8 @@
 <nav class="mobile-nav fixed bottom-0 left-0 right-0 p-3 z-50 block md:hidden">
     <div class="bg-green-700 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
         <div class="flex justify-around items-center h-14 px-1">
-            <a href="/" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
-                data-nav="home">
+            <a href="{{ site_url() }}"
+                class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="home">
                 <i data-lucide="home"
                     class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
                 <span
@@ -15,7 +15,8 @@
                 <span
                     class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
             </a>
-            <a href="/pembangunan" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
+            <a href="{{ site_url('pembangunan') }}"
+                class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
                 data-nav="pembangunan">
                 <i data-lucide="building-2"
                     class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
@@ -24,7 +25,8 @@
                 <span
                     class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
             </a>
-            <a href="/data-wilayah" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
+            <a href="{{ site_url('data-wilayah') }}"
+                class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
                 data-nav="statistik">
                 <i data-lucide="bar-chart-2"
                     class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
@@ -33,7 +35,48 @@
                 <span
                     class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
             </a>
-            <a href="/peta" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
+            <div class="relative">
+                <button onclick="toggleLoginMenu()"
+                    class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
+                    aria-label="Toggle login menu" data-nav="login">
+                    <i data-lucide="log-in"
+                        class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+                    <span
+                        class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Login</span>
+                    <span
+                        class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                </button>
+
+                <!-- Login Menu Popup -->
+                <div id="login-popup"
+                    class="hidden absolute bottom-full right-0 mb-4 bg-green-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden w-48"
+                    role="dialog" aria-labelledby="login-popup-title">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 id="login-popup-title" class="text-sm font-semibold text-white">Login</h4>
+                            <button onclick="toggleLoginMenu()"
+                                class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-green-700 transition-colors"
+                                aria-label="Close">
+                                <i data-lucide="x" class="w-4 h-4 text-green-200"></i>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2">
+                            <a href="{{ site_url('siteman') }}"
+                                class="flex items-center gap-3 p-3 rounded-xl bg-green-700 hover:bg-blue-600 text-white transition-all duration-200 group">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-green-200 group-hover:text-white"></i>
+                                <span class="text-xs font-medium">Halaman Admin</span>
+                            </a>
+                            <a href="{{ site_url('layanan-mandiri') }}"
+                                class="flex items-center gap-3 p-3 rounded-xl bg-green-700 hover:bg-blue-600 text-white transition-all duration-200 group">
+                                <i data-lucide="user" class="w-5 h-5 text-green-200 group-hover:text-white"></i>
+                                <span class="text-xs font-medium">Layanan Mandiri</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <a href="{{ site_url('peta') }}" class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
                 data-nav="peta">
                 <i data-lucide="map-pin"
                     class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
@@ -41,62 +84,63 @@
                     class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Peta</span>
                 <span
                     class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
-            </a>
-            <button onclick="toggleSocialMenu()"
-                class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
-                aria-label="Toggle social media menu" data-nav="sosmed">
-                <i data-lucide="share-2"
-                    class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
-                <span
-                    class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Sosmed</span>
-                <span
-                    class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
-            </button>
-        </div>
-    </div>
+            </a> -->
 
-    <!-- Social Media Popup -->
-    <div id="social-popup"
-        class="hidden absolute bottom-full left-3 right-3 mb-2 bg-green-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden"
-        role="dialog" aria-labelledby="social-popup-title">
-        <div class="p-4">
-            <div class="flex items-center justify-between mb-3">
-                <h4 id="social-popup-title" class="text-sm font-semibold text-white">Ikuti Kami</h4>
+            <div class="relative">
                 <button onclick="toggleSocialMenu()"
-                    class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-green-700 transition-colors"
-                    aria-label="Close">
-                    <i data-lucide="x" class="w-4 h-4 text-green-200"></i>
+                    class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative"
+                    aria-label="Toggle social media menu" data-nav="sosmed">
+                    <i data-lucide="share-2"
+                        class="w-5 h-5 text-green-200 group-hover:text-white transition-colors duration-200"></i>
+                    <span
+                        class="text-[10px] mt-1 font-medium text-green-200 group-hover:text-white transition-colors duration-200">Sosmed</span>
+                    <span
+                        class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300"></span>
                 </button>
+
+                <!-- Social Media Popup -->
+                <div id="social-popup"
+                    class="hidden absolute bottom-full right-0 mb-4 bg-green-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden w-64"
+                    role="dialog" aria-labelledby="social-popup-title">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 id="social-popup-title" class="text-sm font-semibold text-white">Ikuti Kami</h4>
+                            <button onclick="toggleSocialMenu()"
+                                class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-green-700 transition-colors"
+                                aria-label="Close">
+                                <i data-lucide="x" class="w-4 h-4 text-green-200"></i>
+                            </button>
+                        </div>
+                        @php
+                            $iconMap = [
+                                'youtube' => 'play-circle',
+                                'whatsapp' => 'phone',
+                                'telegram' => 'send',
+                                'tiktok' => 'music',
+                                'x' => 'twitter',
+                                'email' => 'mail',
+                                'website' => 'globe',
+                            ];
+                        @endphp
+                        <div class="flex gap-2 justify-start flex-wrap">
+                            @if (isset($sosmed) && !empty($sosmed))
+                                @foreach ($sosmed as $data)
+                                    @if (!empty($data['link']))
+                                        @php $icon = $iconMap[strtolower($data['nama'])] ?? strtolower($data['nama']); @endphp
+                                        <a href="{{ $data['link'] }}"
+                                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-green-700 hover:bg-green-600 text-green-100 hover:text-white transition-all duration-200"
+                                            target="_blank" rel="noopener" aria-label="{{ ucfirst($data['nama']) }}">
+                                            <i data-lucide="{{ $icon }}" class="w-4 h-4"></i>
+                                        </a>
+                                    @endif
+                                @endforeach
+                            @else
+                                <p class="text-xs text-green-200">Tidak ada sosial media</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
-            @php
-                $iconMap = [
-                    'youtube' => 'play-circle',
-                    'whatsapp' => 'phone',
-                    'telegram' => 'send',
-                    'tiktok' => 'music',
-                    'x' => 'twitter',
-                    'email' => 'mail',
-                    'website' => 'globe',
-                ];
-            @endphp
-            <div class="flex gap-3 justify-center flex-wrap">
-                @if (isset($sosmed) && !empty($sosmed))
-                    @foreach ($sosmed as $data)
-                        @if (!empty($data['link']))
-                            @php $icon = $iconMap[strtolower($data['nama'])] ?? strtolower($data['nama']); @endphp
-                            <a href="{{ $data['link'] }}"
-                                class="w-11 h-11 flex items-center justify-center rounded-xl bg-green-700 hover:bg-green-600 text-green-100 hover:text-white transition-all duration-200"
-                                target="_blank" rel="noopener" aria-label="{{ ucfirst($data['nama']) }}">
-                                <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
-                            </a>
-                        @endif
-                    @endforeach
-                @else
-                    <p class="text-sm text-green-200">Tidak ada sosial media</p>
-                @endif
-            </div>
-        </div>
-    </div>
 </nav>
 
 <!-- Main Footer -->
@@ -141,7 +185,7 @@
                         <p class="text-[10px] leading-tight">
                             <a href="https://akmalfadli.github.io"
                                 class="text-green-300 hover:text-pink-200 transition-colors" target="_blank" rel="noopener">
-                                Tema Wira {{ $themeVersion }}
+                                Tema Perwira {{ $themeVersion }}
                             </a>
                         </p>
                     @endif
@@ -253,7 +297,7 @@
                     <a href="https://akmalfadli.github.io"
                         class="underline decoration-pink-500 underline-offset-1 decoration-2 hover:text-pink-200 transition-colors"
                         target="_blank" rel="noopener">
-                        Tema Wira {{ $themeVersion }}
+                        Tema Perwira {{ $themeVersion }}
                     </a>
                 @endif
                 @if (isset($themeVersion) && function_exists('ambilVersi'))
@@ -292,13 +336,15 @@
         width: 20px;
     }
 
-    #social-popup {
+    #social-popup,
+    #login-popup {
         transform: translateY(8px);
         opacity: 0;
         transition: all 0.2s ease-out;
     }
 
-    #social-popup:not(.hidden) {
+    #social-popup:not(.hidden),
+    #login-popup:not(.hidden) {
         transform: translateY(0);
         opacity: 1;
     }
@@ -315,57 +361,69 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Cache DOM elements
         const socialPopup = document.getElementById('social-popup');
-        const navLinks = document.querySelectorAll('.fixed.bottom-0 a');
+        const loginPopup = document.getElementById('login-popup');
 
-        // Social menu toggle with better error handling
-        window.toggleSocialMenu = function () {
-            if (!socialPopup) return;
+        // Menus toggle helper
+        function toggleMenu(popup, otherPopup) {
+            if (!popup) return;
 
-            const isHidden = socialPopup.classList.contains('hidden');
-            socialPopup.classList.toggle('hidden');
+            if (otherPopup && !otherPopup.classList.contains('hidden')) {
+                otherPopup.classList.add('hidden');
+            }
+
+            const isHidden = popup.classList.contains('hidden');
+            popup.classList.toggle('hidden');
 
             // Manage focus for accessibility
             if (!isHidden) {
-                // Closing popup - return focus to trigger button
-                const triggerButton = document.querySelector('button[onclick="toggleSocialMenu()"]');
-                if (triggerButton) triggerButton.focus();
+                // Closing popup
+                document.body.style.overflow = '';
             } else {
-                // Opening popup - focus first interactive element
-                const firstLink = socialPopup.querySelector('a');
+                // Opening popup
+                const firstLink = popup.querySelector('a');
                 if (firstLink) firstLink.focus();
-            }
 
-            // Prevent body scroll on mobile when popup is open
-            if (window.innerWidth < 768) {
-                document.body.style.overflow = isHidden ? 'hidden' : '';
+                if (window.innerWidth < 768) {
+                    document.body.style.overflow = 'hidden';
+                }
             }
+        }
+
+        window.toggleSocialMenu = function () {
+            toggleMenu(socialPopup, loginPopup);
+        };
+
+        window.toggleLoginMenu = function () {
+            toggleMenu(loginPopup, socialPopup);
         };
 
         // Close popup when clicking outside
         document.addEventListener('click', function (event) {
-            if (!socialPopup) return;
+            const isSocialTrigger = event.target.closest('button[onclick="toggleSocialMenu()"]');
+            const isLoginTrigger = event.target.closest('button[onclick="toggleLoginMenu()"]');
 
-            const triggerButton = event.target.closest('button[onclick="toggleSocialMenu()"]');
-            const isClickInside = socialPopup.contains(event.target) || triggerButton;
-
-            if (!isClickInside && !socialPopup.classList.contains('hidden')) {
+            if (!isSocialTrigger && socialPopup && !socialPopup.classList.contains('hidden') && !socialPopup.contains(event.target)) {
                 socialPopup.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            if (!isLoginTrigger && loginPopup && !loginPopup.classList.contains('hidden') && !loginPopup.contains(event.target)) {
+                loginPopup.classList.add('hidden');
                 document.body.style.overflow = '';
             }
         });
 
         // Keyboard navigation
         document.addEventListener('keydown', function (event) {
-            if (!socialPopup) return;
-
-            // Close popup with Escape key
-            if (event.key === 'Escape' && !socialPopup.classList.contains('hidden')) {
-                socialPopup.classList.add('hidden');
-                document.body.style.overflow = '';
-
-                // Return focus to trigger button
-                const triggerButton = document.querySelector('button[onclick="toggleSocialMenu()"]');
-                if (triggerButton) triggerButton.focus();
+            if (event.key === 'Escape') {
+                if (socialPopup && !socialPopup.classList.contains('hidden')) {
+                    socialPopup.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+                if (loginPopup && !loginPopup.classList.contains('hidden')) {
+                    loginPopup.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
             }
         });
 
