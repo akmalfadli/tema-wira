@@ -3,8 +3,9 @@
     @includeWhen($transparansi, 'theme::partials.apbdesa', $transparansi)
 </div>
 <!-- Bottom Navigation for Mobile (Fixed at bottom) -->
-<nav class="mobile-nav fixed bottom-0 left-0 right-0 p-3 z-50 block md:hidden">
-    <div class="bg-green-700 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+<nav class="mobile-nav fixed bottom-0 left-0 right-0 pb-3 p-6 z-50 block md:hidden">
+    <div class="bg-green-700 rounded-2xl"
+        style="box-shadow: 0 -8px 32px rgba(22,101,52,0.4), 0 8px 32px rgba(0,0,0,0.25);">
         <div class="flex justify-around items-center h-14 px-1">
             <a href="{{ site_url() }}"
                 class="nav-item group flex flex-col items-center justify-center py-2 px-4 relative" data-nav="home">
