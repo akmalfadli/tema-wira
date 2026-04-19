@@ -5,11 +5,11 @@
 @endif
 <link rel="stylesheet" href="{{ theme_asset('vendor/animate-css/animate.compat.min.css') }}">
 <link rel="stylesheet" href="{{ theme_asset('vendor/owl-carousel/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ theme_asset('vendor/font-awesome/all.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="{{ theme_asset('vendor/fancybox/jquery.fancybox.min.css') }}">
 <link rel="stylesheet" href="{{ theme_asset('vendor/datatables/jquery.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ theme_asset('vendor/leaflet/leaflet.css') }}">
-<link rel="stylesheet" href="{{ theme_asset('vendor/mapbox-gl/mapbox-gl.min.css') }}">
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css">
 <link rel="stylesheet" href="{{ theme_asset('vendor/ionicons/ionicons.min.css') }}">
 {{--
 <link rel="stylesheet" href="{{ theme_asset('css/app.css') }}"> --}}

@@ -114,13 +114,15 @@
                         </div>
                         @php
                             $iconMap = [
-                                'youtube' => 'play-circle',
-                                'whatsapp' => 'phone',
-                                'telegram' => 'send',
-                                'tiktok' => 'music',
-                                'x' => 'twitter',
-                                'email' => 'mail',
-                                'website' => 'globe',
+                                'facebook' => 'fa-brands fa-facebook-f',
+                                'instagram' => 'fa-brands fa-instagram',
+                                'youtube' => 'fa-brands fa-youtube',
+                                'whatsapp' => 'fa-brands fa-whatsapp',
+                                'telegram' => 'fa-brands fa-telegram',
+                                'tiktok' => 'fa-brands fa-tiktok',
+                                'x' => 'fa-brands fa-x-twitter',
+                                'email' => 'fa-solid fa-envelope',
+                                'website' => 'fa-solid fa-globe',
                             ];
                         @endphp
                         <div class="flex gap-2 justify-start flex-wrap">
@@ -131,7 +133,7 @@
                                         <a href="{{ $data['link'] }}"
                                             class="w-10 h-10 flex items-center justify-center rounded-xl bg-green-700 hover:bg-green-600 text-green-100 hover:text-white transition-all duration-200"
                                             target="_blank" rel="noopener" aria-label="{{ ucfirst($data['nama']) }}">
-                                            <i data-lucide="{{ $icon }}" class="w-4 h-4"></i>
+                                            <i class="{{ $icon }} w-4 h-4"></i>
                                         </a>
                                     @endif
                                 @endforeach
@@ -146,7 +148,7 @@
 
 <!-- Main Footer -->
 <footer class="bg-green-700 text-white py-6 md:py-8" role="contentinfo">
-    <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8">
 
         <!-- Mobile Layout - Single Row with Desa Info and Copyright -->
         <div class="block md:hidden">
@@ -243,10 +245,11 @@
                         @foreach ($sosmed as $data)
                             @if (!empty($data['link']))
                                 @php $hasSocial = true; @endphp
+                                @php $icon = $iconMap[strtolower($data['nama'])] ?? strtolower($data['nama']); @endphp
                                 <a href="{{ $data['link'] }}"
                                     class="bg-green-600 p-2 rounded-md hover:bg-green-500 transition-colors" target="_blank"
                                     rel="noopener" aria-label="Follow us on {{ ucfirst($data['nama']) }}">
-                                    <i data-lucide="{{ $data['nama'] }}" class="w-5 h-5"></i>
+                                    <i class="{{ $icon }} w-5 h-5"></i>
                                 </a>
                             @endif
                         @endforeach
@@ -298,7 +301,7 @@
                     <a href="https://akmalfadli.github.io"
                         class="underline decoration-pink-500 underline-offset-1 decoration-2 hover:text-pink-200 transition-colors"
                         target="_blank" rel="noopener">
-                        Tema Perwira {{ $themeVersion }}
+                        Tema Wira {{ $themeVersion }}
                     </a>
                 @endif
                 @if (isset($themeVersion) && function_exists('ambilVersi'))

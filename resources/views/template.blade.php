@@ -1,5 +1,5 @@
 @php
-    $themeVersion = 'v2603.0.0';
+    $themeVersion = 'v2604.0.0';
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -27,7 +27,7 @@
 @endphp
 
 <body class="w-full bg-white">
-    <div class="max-w-6xl mx-auto mb-2">
+    <div class="max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 mb-2">
         @include('theme::commons.loading_screen')
         {{-- @include('theme::partials.header') --}}
         @if(theme_config('hero_klasik') == '1')

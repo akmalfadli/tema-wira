@@ -4,7 +4,7 @@
 <script src="{{ theme_asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ theme_asset('vendor/leaflet/leaflet.js') }}"></script>
 <script src="{{ theme_asset('vendor/leaflet/leaflet-providers.min.js') }}"></script>
-<script src="{{ theme_asset('vendor/mapbox-gl/mapbox-gl.min.js') }}"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <script src="{{ theme_asset('vendor/leaflet/leaflet-mapbox-gl.min.js') }}"></script>
 <script src="{{ theme_asset('vendor/cycle2/jquery.cycle2.min.js') }}"></script>
 <script src="{{ theme_asset('vendor/cycle2/jquery.cycle2.carousel.js') }}"></script>
