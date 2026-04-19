@@ -44,7 +44,7 @@
         {{-- JDIH Search Mode Panel (Hidden by default) --}}
         <div id="jdih-search-panel"
             class="hidden flex-col bg-gradient-to-b from-green-50 to-white border-b border-gray-200"
-            style="height: min(80vh, calc(100vh - 120px));">
+            style="height: auto; min-height: 26vh; max-height: 60vh; overflow-y: auto;">
             {{-- Mode Toggle Header --}}
             <div class="flex items-center justify-between p-3 bg-white/80 backdrop-blur-sm border-b border-gray-100">
                 <div class="flex items-center gap-2">
