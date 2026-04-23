@@ -21,13 +21,22 @@
     <link rel="stylesheet" href="{{ theme_asset('css/app.css') }}">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+    <style>
+        .theme-container {
+            max-width: 1440px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+    </style>
+
 </head>
 @php
     $post = $single_artikel;
 @endphp
 
 <body class="w-full bg-white">
-    <div class="max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 mb-2">
+    <div class="theme-container px-4 md:px-6 lg:px-8 mb-16">
         @include('theme::commons.loading_screen')
         {{-- @include('theme::partials.header') --}}
         @if(theme_config('hero_klasik') == '1')
@@ -38,9 +47,9 @@
 
         @yield('layout')
         @if (request()->path() === '/' || request()->path() === '')
-            <div class="px-2 md:px-6 lg:px-2">
+            <div class="px-2 md:px-6 lg:px-4">
 
-                <div class="flex flex-col gap-8 mt-8">
+                <div class="flex flex-col gap-0 mt-0">
 
                     @include('theme::partials.articles')
                     @include('theme::partials.statistics')

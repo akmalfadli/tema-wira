@@ -1,6 +1,6 @@
 {{-- resources/views/partials/articles.blade.php --}}
 
-<div class="mt-8" id="articles-section">
+<div class="mt-16" id="articles-section">
     <div class="flex flex-col gap-4 mb-6">
 
         <div class="flex flex-wrap gap-2">
