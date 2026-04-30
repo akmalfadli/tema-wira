@@ -38,7 +38,7 @@
                     </div>`
         document.getElementById('message').innerHTML = _html
         fetch("{{ route('api.verifikasi-surat') }}?filter[id]={{ $id }}", {
-            method: 'get',
+            type: 'POST',
         }).then(response => {
             if (response.ok) {
                 return response.json();

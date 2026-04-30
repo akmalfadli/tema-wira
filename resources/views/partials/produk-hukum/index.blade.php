@@ -73,7 +73,7 @@
                 ordering: true,
                 ajax: {
                     url: `{{ route('api.produk-hukum') }}`,
-                    method: 'GET',
+                    type: 'POST',
                     data: function(row) {
                         var tahun = $('#list_tahun').val();
                         var kategori = $('#list_kategori').val();

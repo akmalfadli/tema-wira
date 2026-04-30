@@ -547,7 +547,7 @@
         // Load statistics data
         $.ajax({
             url: `{{ ci_route('internal_api.statistik', $key) }}?filter[tahun]={{ $selected_tahun ?? '' }}`,
-            method: 'GET',
+            type: 'POST',
             data: {},
             beforeSend: function() {
                 $('#showData').hide();
@@ -697,7 +697,7 @@
                 order: [],
                 ajax: {
                     url: bantuanUrl,
-                    type: 'GET',
+                    type: 'POST',
                     data: function(row) {
                         return {
                             "page[size]": row.length,
