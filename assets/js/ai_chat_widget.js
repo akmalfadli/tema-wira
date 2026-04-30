@@ -13,7 +13,7 @@
         // Initialize AI Assistant
         const aiAssistant = new DesaAIAssistant({
             apiUrl: 'https://ai-assistant.digidesa.id',
-            apiKey: '',
+            apiKey: '1b7b39be-a750-48ad-9090-629b1c6fd6e9',
             villageUrl: window.location.origin
         });
 

@@ -29,6 +29,7 @@
             width: 100%;
         }
     </style>
+    @stack('styles')
 
 </head>
 @php
@@ -68,10 +69,6 @@
     @if(theme_config('ai_assistant') == '1')
         @include('theme::commons.ai_chat')
     @endif
-    @stack('scripts')
-
-
-    <script src="{{ theme_asset('js/script.min.js') }}&{{ $themeVersion }}"></script>
     <script>
         lucide.createIcons()
     </script>

@@ -1,5 +1,5 @@
 /**
- * Wira Theme Installation Tracker
+ * Perwira Theme Installation Tracker
  * Sends usage data to the theme developer's analytics server.
  */
 
@@ -8,8 +8,8 @@
 
     // Configuration
     var TRACKING_ENDPOINT = 'https://analytics.digidesa.id/api/theme-tracker';
-    var THEME_NAME = 'wira';
-    var THEME_VERSION = 'v2602.0.0';
+    var THEME_NAME = 'perwira';
+    var THEME_VERSION = 'v2601.0.0';
 
     // Skip tracking on localhost/dev environments
     var hostname = window.location.hostname;
@@ -23,7 +23,7 @@
     }
 
     // Storage key to prevent excessive requests
-    var CACHE_KEY = 'wira_theme_tracking_sent';
+    var CACHE_KEY = 'perwira_theme_tracking_sent';
     var CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
     function getTrackingData() {
