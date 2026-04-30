@@ -44,7 +44,8 @@ public/css/
 mix-manifest.json
 
 # Composer vendor (if this theme has PHP code)
-vendor/
+/vendor/
+!assets/vendor/
 
 # =========================================
 # End of .gitignore
