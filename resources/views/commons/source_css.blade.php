@@ -15,4 +15,3 @@
 <link rel="stylesheet" href="{{ theme_asset('css/app.css') }}"> --}}
 <link rel="stylesheet" href="{{ theme_asset('css/style.min.css?' . $themeVersion) }}">
 <link rel="stylesheet" href="{{ theme_asset('css/custom.css?' . $themeVersion) }}">
-<link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">

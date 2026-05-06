@@ -20,6 +20,7 @@
     <script src="https://cdn.tailwindcss.com"></script> --}}
     <link rel="stylesheet" href="{{ theme_asset('css/app.css') }}">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    @include('theme::commons.scripts.license')
 
     <style>
         .theme-container {

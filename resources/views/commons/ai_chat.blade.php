@@ -227,7 +227,8 @@
     </button>
 </div>
 
-<!-- Load Marked.js for Markdown rendering -->
+<!-- Load AI Chat Assets -->
+<link rel="stylesheet" href="{{ theme_asset('css/ai_chat.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- AI Chat Configuration (Inlined to fix MIME issues) -->
