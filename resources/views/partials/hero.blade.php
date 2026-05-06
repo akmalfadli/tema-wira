@@ -7,7 +7,7 @@
     {{-- Navigation Menu at the top --}}
     <header class="absolute top-0 left-0 right-0 z-30">
         <div class="relative z-10">
-            <div class="hidden lg:flex items-start justify-between py-2 mt-4">
+            <div class="hidden lg:flex items-start justify-between py-2 mx-8 mt-4">
                 <div class="flex items-start">
                     <div class="flex items-center flex-shrink-0 pr-8 gap-x-3">
                         <a href="{{ ci_route() }}" class="block">
@@ -178,7 +178,7 @@
 
 
     {{-- Hero content --}}
-    <div class="relative z-10 h-full flex flex-col lg:flex-row pt-20 lg:pt-32 pb-12">
+    <div class="relative z-10 h-full flex flex-col lg:flex-row pt-16 lg:pt-16">
         {{-- Desktop content --}}
         <div class="hidden lg:flex flex-1 flex-col justify-center">
             <div class="max-w-4xl">

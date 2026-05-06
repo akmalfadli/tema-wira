@@ -1,5 +1,5 @@
 @php
-    $themeVersion = 'v2604.0.0';
+    $themeVersion = 'v2604.1.0';
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -76,7 +76,7 @@
     @stack('scripts')
 
     <!-- Theme Tracker -->
-    <script src="{{ theme_asset('js/theme_tracker.js') }}"></script>
+    @include('theme::commons.scripts.theme_tracker')
 
 
 </body>
