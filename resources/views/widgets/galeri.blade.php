@@ -9,7 +9,6 @@
 
     <div class="box-body grid grid-cols-3 gap-2 flex-wrap">
         @foreach ($w_gal as $data)
-            @foreach ($w_gal as $data)
             @if (is_file(LOKASI_GALERI . 'sedang_' . $data['gambar']))
                 <a href='{{ route('web.galeri.detail', $data['id']) }}' title="{{ "Album : {$data['nama']}" }}">
                     <img src="{{ AmbilGaleri($data['gambar'], 'kecil') }}" alt="{{ "Album : {$data['nama']}" }}" class="w-full">
