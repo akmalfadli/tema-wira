@@ -1,4 +1,4 @@
-Catatan Rilis v26.06:
+Catatan Rilis v26.01:
 
 Ini adalah tema Wira yang dibuat untuk aplikasi Sistem Informasi Desa OpenSID
 
