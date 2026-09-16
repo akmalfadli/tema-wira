@@ -202,7 +202,26 @@
 
     <!-- Script Logic -->
     <script type="text/javascript">
-        // Clean HTML2PDF tags (<page>, <page_header>, etc.) into standard HTML
+        // Mask sensitive information for public preview (NIK, KK, Tanggal Lahir)
+        function maskSensitiveInfo(text) {
+            if (!text) return text;
+            
+            // 1. Mask 16-digit NIK / No KK (e.g. 3201012304990001 -> 320101******0001)
+            let masked = text.replace(/\b(\d{6})\d{6}(\d{4})\b/g, '$1******$2');
+            masked = masked.replace(/(NIK|KK|No\.?\s*KK|No\.?\s*NIK)\s*[:=]?\s*(\d{6})\d{6}(\d{4})/gi, '$1 : $2******$3');
+            
+            // 2. Mask Date of Birth (Tanggal Lahir) standalone dates in DOB context or table rows
+            masked = masked.replace(/(Tanggal\s+Lahir|Tgl\.?\s*Lahir|Tempat[\/,\s]+Tanggal\s+Lahir|Lahir\s+pada\s+tanggal|Tempat\/Tgl\s+Lahir)([\s\S]*?)((\d{1,2}[-\/]\d{1,2}[-\/]\d{4})|(\d{1,2}\s+(?:Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\s+\d{4}))/gi, function(match, label, middle, dateStr) {
+                let maskedDate = dateStr
+                    .replace(/(\b\d{1,2})[-\/]\d{1,2}[-\/]\d{4}\b/g, '$1-**-****')
+                    .replace(/(\b\d{1,2})\s+(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\s+\d{4}/gi, '$1 ** ****');
+                return label + middle + maskedDate;
+            });
+
+            return masked;
+        }
+
+        // Clean HTML2PDF tags (<page>, <page_header>, etc.) into standard HTML and apply masking
         function sanitizeLetterHtml(rawHtml) {
             if (!rawHtml) return '<div class="text-center py-12 text-slate-400 text-xs">Pratinjau isi surat tidak tersedia.</div>';
             
@@ -212,7 +231,7 @@
                 .replace(/<page[^>]*>/gi, '<div class="letter-page-body">')
                 .replace(/<\/page>/gi, '</div>');
 
-            return formatted;
+            return maskSensitiveInfo(formatted);
         }
 
         document.addEventListener("DOMContentLoaded", function() {

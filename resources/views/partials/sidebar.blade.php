@@ -21,7 +21,7 @@
                         <div class="w-full h-1 bg-green-500 mb-2"></div>
                         
                         <div class="widget-content prose prose-sm max-w-none p-4">
-                            {!! html_entity_decode($widget['isi']) !!}
+                            {!! bersihkan_xss(html_entity_decode($widget['isi'])) !!}
                         </div>
                     </div>
                 @else

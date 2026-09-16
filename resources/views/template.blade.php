@@ -45,7 +45,11 @@
         @endif
 
         @yield('layout')
-        @if (request()->path() === '/' || request()->path() === '')
+        @php
+            $currentPath = trim(request()->path(), '/');
+            $isHomePage = $currentPath === '' || $currentPath === 'index.php' || $currentPath === 'first';
+        @endphp
+        @if ($isHomePage)
             <div class="px-2 md:px-6 lg:px-4">
 
                 <div class="flex flex-col gap-0 mt-0">

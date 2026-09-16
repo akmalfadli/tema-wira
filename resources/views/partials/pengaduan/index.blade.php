@@ -1,4 +1,4 @@
-@extends('theme::layouts.full-content')
+@extends('theme::layouts.right-sidebar')
 
 @push('styles')
     <style type="text/css">
@@ -80,7 +80,7 @@
     <h1 class="text-h2">Pengaduan</h1>
     <div>
         <div class="flex gap-3 lg:w-7/12 flex-col lg:flex-row py-5">
-            <button type="button" class="btn btn-primary flex-shrink-0" data-bs-toggle="modal" data-bs-target="#newpengaduan"><i class="fas fa-pencil-alt mr-1"></i> Buat Pengaduan</button>
+            <button type="button" class="btn btn-primary flex-shrink-0" onclick="openModal('#newpengaduan')"><i class="fas fa-pencil-alt mr-1"></i> Buat Pengaduan</button>
             <select class="form-input inline-block select2" id="caristatus" name="caristatus">
                 <option value="">Semua Status</option>
                 <option value="1">Menunggu Diproses</option>
@@ -96,7 +96,6 @@
         <div id="pengaduan-list"></div>
         @include('theme::commons.pagination')
     </div>
-    </div>
 
     <!-- BEGIN DETAIL TICKET -->
     <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="pengaduan-detail" tabindex="-1" role="dialog" aria-labelledby="pengaduan-detail" aria-hidden="true">
@@ -109,7 +108,7 @@
 
                 </div>
                 <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                    <button type="button" class="btn bg-red-500 hover:bg-red-500 text-white" data-bs-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                    <button type="button" class="btn bg-red-500 hover:bg-red-500 text-white" onclick="closeModal('#pengaduan-detail')"><i class="fa fa-times"></i> Tutup</button>
                 </div>
             </div>
         </div>
@@ -136,24 +135,24 @@
                     <div class="modal-body relative px-3 py-2 lg:px-5">
                         <!-- Notifikasi -->
                         @include('theme::commons.notifikasi')
-                        @php $data = 	session('data', []) @endphp
+                        @php $data = session('data', []) @endphp
                         <div class="py-2">
-                            <input name="nik" type="text" maxlength="16" class="form-input" placeholder="NIK" value="{{ $data['nik'] }}">
+                            <input name="nik" type="text" maxlength="16" class="form-input" placeholder="NIK" value="{{ $data['nik'] ?? '' }}">
                         </div>
                         <div class="py-2">
-                            <input name="nama" type="text" required="" class="form-input" placeholder="Nama*" value="{{ $data['nama'] }}">
+                            <input name="nama" type="text" required="" class="form-input" placeholder="Nama*" value="{{ $data['nama'] ?? '' }}">
                         </div>
                         <div class="py-2">
-                            <input name="email" type="email" class="form-input" placeholder="Email" value="{{ $data['email'] }}">
+                            <input name="email" type="email" class="form-input" placeholder="Email" value="{{ $data['email'] ?? '' }}">
                         </div>
                         <div class="py-2">
-                            <input name="telepon" type="text" class="form-input" placeholder="Telepon" value="{{ $data['telepon'] }}">
+                            <input name="telepon" type="text" class="form-input" placeholder="Telepon" value="{{ $data['telepon'] ?? '' }}">
                         </div>
                         <div class="py-2">
-                            <input name="judul" type="text" class="form-input" required="" placeholder="Judul*" value="{{ $data['judul'] }}">
+                            <input name="judul" type="text" class="form-input" required="" placeholder="Judul*" value="{{ $data['judul'] ?? '' }}">
                         </div>
                         <div class="py-2">
-                            <textarea name="isi" required="" class="form-textarea" placeholder="Isi Pengaduan*" rows="4">{{ $data['isi'] }}</textarea>
+                            <textarea name="isi" required="" class="form-textarea" placeholder="Isi Pengaduan*" rows="4">{{ $data['isi'] ?? '' }}</textarea>
                         </div>
                         <div class="py-2">
                             <div class="relative">
@@ -185,7 +184,7 @@
                                     class="form-input required"
                                     name="captcha_code"
                                     maxlength="6"
-                                    value="{{ $notif['data']['captcha_code'] }}"
+                                    value=""
                                     placeholder="Isikan jawaban"
                                     required
                                 >
@@ -193,7 +192,7 @@
                         </div>
                     </div>
                     <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-between p-4 border-t border-gray-200 rounded-b-md">
-                        <a href="{{ ci_route('pengaduan') }}" class="btn bg-red-500 hover:bg-red-500 text-white pull-left"><i class="fa fa-times"></i> Tutup</a>
+                        <button type="button" onclick="closeModal('#newpengaduan')" class="btn bg-red-500 hover:bg-red-500 text-white pull-left"><i class="fa fa-times"></i> Tutup</button>
                         <button type="submit" class="btn btn-primary pull-right"><i class="fas fa-paper-plane"></i> Kirim</button>
                     </div>
                 </form>
@@ -204,6 +203,28 @@
 
 @push('scripts')
     @include('theme::commons.scripts.pagination')
+    <script type="text/javascript">
+        // Custom modal functions (Bootstrap JS not loaded in theme)
+        function openModal(selector) {
+            const modal = $(selector);
+            modal.removeClass('hidden');
+            modal.addClass('show');
+            $('body').css('overflow', 'hidden');
+            // Add backdrop
+            if (!$('.modal-backdrop').length) {
+                $('body').append('<div class="modal-backdrop" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:40;"></div>');
+            }
+            modal.css({'display': 'block', 'z-index': '50'});
+        }
+        function closeModal(selector) {
+            const modal = $(selector);
+            modal.addClass('hidden');
+            modal.removeClass('show');
+            modal.css('display', '');
+            $('body').css('overflow', '');
+            $('.modal-backdrop').remove();
+        }
+    </script>
     <script type="text/javascript">
         $('#file_browser').click(function(e) {
             e.preventDefault();
@@ -233,7 +254,7 @@
 
             var data = {{ count(session('data') ?? []) }};
             if (data) {
-                $('#newpengaduan').modal('show');
+                openModal('#newpengaduan');
             }
 
             $('#btn-search').click(function() {
@@ -332,7 +353,7 @@
 						</div>
 						${_comments.join('')}`;
 
-                        $('#pengaduan-detail').modal('show')
+                        openModal('#pengaduan-detail')
                         $('#pengaduan-judul').text(item.attributes.judul)
                         $('#pengaduan-detail .modal-body').html(htmlBody)
                     }
@@ -352,7 +373,7 @@
 
                 reader.onload = function(e) {
                     $('#blah').removeClass('hidden');
-                    $('#blah').attr('src', e.target.result).width(150).height(auto);
+                    $('#blah').attr('src', e.target.result).width(150).height('auto');
                 };
 
                 reader.readAsDataURL(input.files[0]);
