@@ -1,40 +1,36 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <?php
-// Social media icon mapping
-$social_icons = [
-    'facebook' => ['icon' => 'fa-brands fa-facebook-f', 'color' => 'bg-blue-600'],
-    'instagram' => ['icon' => 'fa-brands fa-instagram', 'color' => 'bg-pink-500'],
-    'twitter' => ['icon' => 'fa-brands fa-twitter', 'color' => 'bg-blue-400'],
-    'x' => ['icon' => 'fa-brands fa-x-twitter', 'color' => 'bg-black'],
-    'youtube' => ['icon' => 'fa-brands fa-youtube', 'color' => 'bg-red-500'],
-    'whatsapp' => ['icon' => 'fa-brands fa-whatsapp', 'color' => 'bg-green-500'],
-    'telegram' => ['icon' => 'fa-brands fa-telegram', 'color' => 'bg-blue-500'],
-    'tiktok' => ['icon' => 'fa-brands fa-tiktok', 'color' => 'bg-black'],
-    'linkedin' => ['icon' => 'fa-brands fa-linkedin', 'color' => 'bg-blue-700'],
-    'email' => ['icon' => 'fa-solid fa-envelope', 'color' => 'bg-gray-600'],
-    'website' => ['icon' => 'fa-solid fa-globe', 'color' => 'bg-primary-700'],
-];
-
-function getSocialMediaInfo($name) {
-    global $social_icons;
-    
-    $name_lower = strtolower($name);
-    
-    // Check for exact matches first
-    if (isset($social_icons[$name_lower])) {
-        return $social_icons[$name_lower];
-    }
-    
-    // Check for partial matches
-    foreach ($social_icons as $key => $value) {
-        if (strpos($name_lower, $key) !== false) {
-            return $value;
+if (! function_exists('getSocialMediaInfo')) {
+    function getSocialMediaInfo($name) {
+        static $social_icons = [
+            'facebook'  => ['icon' => 'fa-brands fa-facebook-f', 'color' => 'bg-blue-600'],
+            'instagram' => ['icon' => 'fa-brands fa-instagram', 'color' => 'bg-pink-500'],
+            'twitter'   => ['icon' => 'fa-brands fa-twitter', 'color' => 'bg-blue-400'],
+            'x'         => ['icon' => 'fa-brands fa-x-twitter', 'color' => 'bg-black'],
+            'youtube'   => ['icon' => 'fa-brands fa-youtube', 'color' => 'bg-red-500'],
+            'whatsapp'  => ['icon' => 'fa-brands fa-whatsapp', 'color' => 'bg-green-500'],
+            'telegram'  => ['icon' => 'fa-brands fa-telegram', 'color' => 'bg-blue-500'],
+            'tiktok'    => ['icon' => 'fa-brands fa-tiktok', 'color' => 'bg-black'],
+            'linkedin'  => ['icon' => 'fa-brands fa-linkedin', 'color' => 'bg-blue-700'],
+            'email'     => ['icon' => 'fa-solid fa-envelope', 'color' => 'bg-gray-600'],
+            'website'   => ['icon' => 'fa-solid fa-globe', 'color' => 'bg-primary-700'],
+        ];
+        
+        $name_lower = strtolower($name ?? '');
+        
+        if (isset($social_icons[$name_lower])) {
+            return $social_icons[$name_lower];
         }
+        
+        foreach ($social_icons as $key => $value) {
+            if (strpos($name_lower, $key) !== false) {
+                return $value;
+            }
+        }
+        
+        return ['icon' => 'fa-solid fa-globe', 'color' => 'bg-primary-700'];
     }
-    
-    // Default fallback
-    return ['icon' => 'fa-solid fa-globe', 'color' => 'bg-primary-700'];
 }
 ?>
 

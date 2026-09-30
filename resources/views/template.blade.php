@@ -31,7 +31,7 @@
 
 </head>
 @php
-    $post = $single_artikel;
+    $post = $single_artikel ?? null;
 @endphp
 
 <body class="w-full bg-white">

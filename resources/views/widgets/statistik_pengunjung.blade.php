@@ -1,7 +1,8 @@
 <?php
-
-    if ($yesterday > 0) {
-        $percentageChange = (($statistik_pengunjung['hari_ini'] - $statistik_pengunjung['kemarin']) / $statistik_pengunjung['kemarin']) * 100;
+    $kemarin = (float) ($statistik_pengunjung['kemarin'] ?? 0);
+    $hari_ini = (float) ($statistik_pengunjung['hari_ini'] ?? 0);
+    if ($kemarin > 0) {
+        $percentageChange = round((($hari_ini - $kemarin) / $kemarin) * 100, 1);
     } else {
         $percentageChange = 0; // avoid division by zero
     }
@@ -22,7 +23,7 @@
                 <p class="text-xs text-gray-600">Pengunjung aktif</p>
             </div>
             <div class="text-right">
-                <p class="text-2xl font-bold text-primary-700">{{ number_format($statistik_pengunjung['hari_ini']) }}</p>
+                <p class="text-2xl font-bold text-primary-700">{{ number_format((float) ($statistik_pengunjung['hari_ini'] ?? 0)) }}</p>
                 <p class="text-xs text-primary-600">{{ $percentageChange . '%'}}</p>
             </div>
         </div>
@@ -33,7 +34,7 @@
                 <p class="text-xs text-gray-600">Total pengunjung</p>
             </div>
             <div class="text-right">
-                <p class="text-2xl font-bold text-gray-700">{{ number_format($statistik_pengunjung['kemarin']) ?? 0 }}</p>
+                <p class="text-2xl font-bold text-gray-700">{{ number_format((float) ($statistik_pengunjung['kemarin'] ?? 0)) }}</p>
             </div>
         </div>
         
@@ -43,7 +44,7 @@
                 <p class="text-xs text-gray-600">Semua pengunjung</p>
             </div>
             <div class="text-right">
-                <p class="text-2xl font-bold text-gray-700">{{ number_format($statistik_pengunjung['total']) }}</p>
+                <p class="text-2xl font-bold text-gray-700">{{ number_format((float) ($statistik_pengunjung['total'] ?? 0)) }}</p>
             </div>
         </div>
     </div>

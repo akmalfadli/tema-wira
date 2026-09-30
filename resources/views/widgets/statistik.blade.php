@@ -4,16 +4,19 @@ $total_population = 0;
 $gender_data = [];
 
 // Process the data to get totals
-foreach ($stat_widget as $data) {
-    if ($data['jumlah'] > 0 && $data['nama'] != 'JUMLAH') {
-        $total_population += $data['jumlah'];
-        $gender_data[] = $data;
+if (!empty($stat_widget) && is_iterable($stat_widget)) {
+    foreach ($stat_widget as $data) {
+        if (!empty($data['jumlah']) && ($data['nama'] ?? '') != 'JUMLAH') {
+            $total_population += $data['jumlah'];
+            $gender_data[] = $data;
+        }
     }
-}
 
-// Calculate percentages for each gender
-foreach ($gender_data as &$item) {
-    $item['percentage'] = $data['jumlah'] > 0 ? round(($item['jumlah'] / $data['jumlah']) * 100, 1) : 0;
+    // Calculate percentages for each gender
+    foreach ($gender_data as &$item) {
+        $item['percentage'] = $total_population > 0 ? round(($item['jumlah'] / $total_population) * 100, 1) : 0;
+    }
+    unset($item);
 }
 ?>
 
