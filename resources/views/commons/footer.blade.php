@@ -48,8 +48,7 @@
                 <a href="https://www.trivusi.web.id"
                     class="underline decoration-pink-500 underline-offset-1 decoration-2" target="_blank"
                     rel="noopener">Perwira {{ $themeVersion }}</a> -
-                <a href="https://github.com/akmalfadli" class="underline decoration-green-500 underline-offset-1 decoration-2"
-                    target="_blank" rel="noopener">Digidesa {{ ambilVersi() }}</a> -
+                <span class="underline decoration-green-500 underline-offset-1 decoration-2">Digidesa {{ ambilVersi() }}</span> -
                 @if (file_exists('mitra'))
                     Hosting didukung
                     <a href="https://my.idcloudhost.com/aff.php?aff=3172" rel="noopener noreferrer" target="_blank">

@@ -193,11 +193,8 @@
                         </p>
                     @endif
                     @if (function_exists('ambilVersi'))
-                        <p class="text-[10px] leading-tight">
-                            <a href="https://opensid.my.id" class="text-green-300 hover:text-green-200 transition-colors"
-                                target="_blank" rel="noopener">
-                                OpenSID {{ ambilVersi() }}
-                            </a>
+                        <p class="text-[10px] leading-tight text-green-300">
+                            Digidesa {{ ambilVersi() }}
                         </p>
                     @endif
                 </div>
@@ -308,11 +305,9 @@
                     <span>-</span>
                 @endif
                 @if (function_exists('ambilVersi'))
-                    <a href="https://opensid.my.id"
-                        class="underline decoration-green-500 underline-offset-1 decoration-2 hover:text-green-200 transition-colors"
-                        target="_blank" rel="noopener">
-                        OpenSID {{ ambilVersi() }}
-                    </a>
+                    <span class="underline decoration-green-500 underline-offset-1 decoration-2 text-green-300">
+                        Digidesa {{ ambilVersi() }}
+                    </span>
                 @endif
             </div>
         </div>
